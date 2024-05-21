@@ -14,6 +14,7 @@ com\ttd\configs\SpringSecurityConfig.class
 com\ttd\pojo\Maingrade.class
 com\ttd\repositories\impl\UserReppositoryImpl.class
 com\ttd\configs\HibernateConfig.class
+com\ttd\controllers\LecturerController.class
 com\ttd\controllers\UserController.class
 com\ttd\configs\WebAppContextConfig.class
 com\ttd\filters\CustomAccessDeniedHandler.class

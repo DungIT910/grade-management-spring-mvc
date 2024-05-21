@@ -5,6 +5,7 @@
 package com.ttd.services;
 
 import com.ttd.pojo.User;
+import java.util.List;
 import java.util.Map;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,4 +18,6 @@ public interface UserService extends UserDetailsService  {
     User getUserByUn(String username);
     boolean authUser(String username, String password);
     User addUser(Map<String, String> params, MultipartFile avatar, String role);
+    List<User> getStudents();
+    List<User> getLecturers();
 }

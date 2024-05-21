@@ -5,7 +5,7 @@
 package com.ttd.pojo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,7 +52,7 @@ public class Subcol implements Serializable {
     @ManyToOne(optional = false)
     private Class classId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcolId")
-    private Collection<Subgrade> subgradeCollection;
+    private Set<Subgrade> subgradeSet;
 
     public Subcol() {
     }
@@ -91,12 +91,12 @@ public class Subcol implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Subgrade> getSubgradeCollection() {
-        return subgradeCollection;
+    public Set<Subgrade> getSubgradeSet() {
+        return subgradeSet;
     }
 
-    public void setSubgradeCollection(Collection<Subgrade> subgradeCollection) {
-        this.subgradeCollection = subgradeCollection;
+    public void setSubgradeSet(Set<Subgrade> subgradeSet) {
+        this.subgradeSet = subgradeSet;
     }
 
     @Override

@@ -5,7 +5,7 @@
 package com.ttd.pojo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,9 +49,9 @@ public class Class implements Serializable {
     @Column(name = "name")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classId")
-    private Collection<Maingrade> maingradeCollection;
+    private Set<Maingrade> maingradeSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classId")
-    private Collection<Subcol> subcolCollection;
+    private Set<Subcol> subcolSet;
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Subject subjectId;
@@ -85,21 +85,21 @@ public class Class implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Maingrade> getMaingradeCollection() {
-        return maingradeCollection;
+    public Set<Maingrade> getMaingradeSet() {
+        return maingradeSet;
     }
 
-    public void setMaingradeCollection(Collection<Maingrade> maingradeCollection) {
-        this.maingradeCollection = maingradeCollection;
+    public void setMaingradeSet(Set<Maingrade> maingradeSet) {
+        this.maingradeSet = maingradeSet;
     }
 
     @XmlTransient
-    public Collection<Subcol> getSubcolCollection() {
-        return subcolCollection;
+    public Set<Subcol> getSubcolSet() {
+        return subcolSet;
     }
 
-    public void setSubcolCollection(Collection<Subcol> subcolCollection) {
-        this.subcolCollection = subcolCollection;
+    public void setSubcolSet(Set<Subcol> subcolSet) {
+        this.subcolSet = subcolSet;
     }
 
     public Subject getSubjectId() {

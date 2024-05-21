@@ -25,11 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @ControllerAdvice
 @PropertySource("classpath:configs.properties")
 public class IndexController {
-//    @Autowired
-//    private ProductService productService;
-//    @Autowired
-//    private CategoryService cateService;
-
     @Autowired
     private Environment env;
 
@@ -37,20 +32,9 @@ public class IndexController {
 //    public void commonAttr(Model model) {
 //        model.addAttribute("categories", this.cateService.getCategories());
 //    }
-//    
-//    @RequestMapping("/")
-//    public String index(Model model, @RequestParam Map<String, String> params) {
-//        model.addAttribute("products", this.productService.getProducts(params));
-//        
-//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-//        long count = this.productService.countProduct();
-//        model.addAttribute("counter", Math.ceil(count*1.0/pageSize));
-//        
-//        return "index";
-//    }
+
     @RequestMapping("/")
     public String index() {
-        
         return "index";
     }
 

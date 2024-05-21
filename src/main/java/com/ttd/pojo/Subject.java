@@ -5,7 +5,7 @@
 package com.ttd.pojo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,7 +47,7 @@ public class Subject implements Serializable {
     @Column(name = "subjectname")
     private String subjectname;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")
-    private Collection<Class> classCollection;
+    private Set<Class> classSet;
 
     public Subject() {
     }
@@ -78,12 +78,12 @@ public class Subject implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Class> getClassCollection() {
-        return classCollection;
+    public Set<Class> getClassSet() {
+        return classSet;
     }
 
-    public void setClassCollection(Collection<Class> classCollection) {
-        this.classCollection = classCollection;
+    public void setClassSet(Set<Class> classSet) {
+        this.classSet = classSet;
     }
 
     @Override

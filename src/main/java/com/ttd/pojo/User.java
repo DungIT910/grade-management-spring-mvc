@@ -4,8 +4,9 @@
  */
 package com.ttd.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,10 +16,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -83,10 +86,14 @@ public class User implements Serializable {
     @Size(max = 100)
     @Column(name = "avatar")
     private String avatar;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Maingrade> maingradeCollection;
+    private Set<Maingrade> maingradeSet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Subgrade> subgradeCollection;
+    private Set<Subgrade> subgradeSet;
+    @Transient
+    private MultipartFile file;
 
     public User() {
     }
@@ -178,21 +185,21 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Maingrade> getMaingradeCollection() {
-        return maingradeCollection;
+    public Set<Maingrade> getMaingradeSet() {
+        return maingradeSet;
     }
 
-    public void setMaingradeCollection(Collection<Maingrade> maingradeCollection) {
-        this.maingradeCollection = maingradeCollection;
+    public void setMaingradeSet(Set<Maingrade> maingradeSet) {
+        this.maingradeSet = maingradeSet;
     }
 
     @XmlTransient
-    public Collection<Subgrade> getSubgradeCollection() {
-        return subgradeCollection;
+    public Set<Subgrade> getSubgradeSet() {
+        return subgradeSet;
     }
 
-    public void setSubgradeCollection(Collection<Subgrade> subgradeCollection) {
-        this.subgradeCollection = subgradeCollection;
+    public void setSubgradeSet(Set<Subgrade> subgradeSet) {
+        this.subgradeSet = subgradeSet;
     }
 
     @Override
@@ -219,5 +226,19 @@ public class User implements Serializable {
     public String toString() {
         return "com.ttd.pojo.User[ id=" + id + " ]";
     }
-    
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
 }

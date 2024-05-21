@@ -11,6 +11,7 @@ import com.ttd.repositories.UserRepository;
 import com.ttd.services.UserService;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -30,7 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service("userDetailsService")
 public class UserServiceImpl implements UserService {
-    
+
+    private final String ROLE_STUDENT = "ROLE_STUDENT";
+    private final String ROLE_LECTURER = "ROLE_LECTURER";
 
     @Autowired
     private UserRepository userRepo;
@@ -72,16 +75,26 @@ public class UserServiceImpl implements UserService {
         u.setUserRole(role);
         if (!avatar.isEmpty()) {
             try {
-                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), 
+                Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
                         ObjectUtils.asMap("resource_type", "auto"));
                 u.setAvatar(res.get("secure_url").toString());
             } catch (IOException ex) {
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         this.userRepo.addUser(u);
         return u;
+    }
+
+    @Override
+    public List<User> getStudents() {
+        return this.userRepo.getUsersByRole(ROLE_STUDENT);
+    }
+
+    @Override
+    public List<User> getLecturers() {
+        return this.userRepo.getUsersByRole(ROLE_LECTURER);
     }
 
 }
