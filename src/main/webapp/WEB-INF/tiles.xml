@@ -23,9 +23,14 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/login.jsp" />
     </definition>
-    <definition name="viewLecturers" extends="baseLayout">
+    <definition name="Lecturers" extends="baseLayout">
         <put-attribute name="title" value="Danh sách giảng viên" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/viewLecturers.jsp" />
+                       value="/WEB-INF/pages/Lecturers.jsp" />
+    </definition>
+    <definition name="crudLecturer" extends="baseLayout">
+        <put-attribute name="title" value="Danh sách giảng viên" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/crudLecturer.jsp" />
     </definition>
 </tiles-definitions>

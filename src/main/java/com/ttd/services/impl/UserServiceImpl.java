@@ -32,9 +32,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Service("userDetailsService")
 public class UserServiceImpl implements UserService {
 
-    private final String ROLE_STUDENT = "ROLE_STUDENT";
-    private final String ROLE_LECTURER = "ROLE_LECTURER";
-
     @Autowired
     private UserRepository userRepo;
     @Autowired
@@ -88,13 +85,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getStudents() {
-        return this.userRepo.getUsersByRole(ROLE_STUDENT);
+    public List<User> getUsersByRole(String role) {
+        return this.userRepo.getUsersByRole(role);
     }
 
-    @Override
-    public List<User> getLecturers() {
-        return this.userRepo.getUsersByRole(ROLE_LECTURER);
-    }
 
 }

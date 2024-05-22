@@ -18,6 +18,5 @@ public interface UserService extends UserDetailsService  {
     User getUserByUn(String username);
     boolean authUser(String username, String password);
     User addUser(Map<String, String> params, MultipartFile avatar, String role);
-    List<User> getStudents();
-    List<User> getLecturers();
+    public List<User> getUsersByRole(String role);
 }

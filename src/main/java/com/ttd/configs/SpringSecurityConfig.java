@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     "com.ttd.repositories",
     "com.ttd.services"
 })
-@Order(2)
+//@Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -67,12 +67,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().logoutSuccessUrl("/login");
         http.exceptionHandling()
                 .accessDeniedPage("/login?accessDenied");
-
-        http.authorizeRequests().antMatchers("/").hasRole("ROLE_ADMIN")
-                .antMatchers("/**/add")
-                .access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/**/pay")
-                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/login/**").permitAll()
+                .antMatchers("/**").access("hasRole('ROLE_ADMIN')");
+//                .antMatchers("/lecturers/**")
+//                .access("hasRole('ROLE_ADMIN')");
+//                .antMatchers("/**/pay")
+//                .access("hasAnyRole('ROLE_LECTERUR', 'ROLE_ADMIN')");
         http.csrf().disable();
     }
 

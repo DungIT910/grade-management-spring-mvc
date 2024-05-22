@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ttd.configs;
 
 import com.cloudinary.Cloudinary;
@@ -58,9 +54,9 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
     }
+   
     
     
-
 //    @Bean
 //    public InternalResourceViewResolver internalResourceViewResolver() {
 //        InternalResourceViewResolver r = new InternalResourceViewResolver();

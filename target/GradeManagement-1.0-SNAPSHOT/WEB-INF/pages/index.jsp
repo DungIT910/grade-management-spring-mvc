@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <section class="container">
     <h1 class="text-center text-info mt-1">DANH SÁCH GIẢNG VIÊN</h1>
-    <a href="<c:url value="/lecturers" />" class="btn btn-info">Thêm giảng viên</a>
+    <a href="<c:url value="admin/lecturers" />" class="btn btn-info">Thêm giảng viên</a>
 
     <table class="table table-hover">
         <thead>
@@ -31,7 +31,7 @@
                     <td>${l.price}</td>
                     <td>
                         <c:url value="/api/lecturers/${l.id}" var="apiDel" />
-                        <a href="<c:url value="/lecturers/${l.id}" />" class="btn btn-success">Cập nhật</a>
+                        <a href="<c:url value="admin/lecturers/${l.id}" />" class="btn btn-success">Cập nhật</a>
                         <button class="btn btn-danger" onclick="delPro('${apiDel}', ${p.id})">Xóa</button>
                     </td>
                 </tr>

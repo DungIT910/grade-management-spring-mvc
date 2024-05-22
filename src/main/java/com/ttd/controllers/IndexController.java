@@ -32,10 +32,9 @@ public class IndexController {
 //    public void commonAttr(Model model) {
 //        model.addAttribute("categories", this.cateService.getCategories());
 //    }
-
     @RequestMapping("/")
-    public String index() {
-        return "index";
+    public String admin() {
+        return "redirect:/admin/lecturers/";
     }
 
 }
