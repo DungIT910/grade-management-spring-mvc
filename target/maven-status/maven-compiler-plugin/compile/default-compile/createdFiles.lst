@@ -6,14 +6,17 @@ com\ttd\pojo\Subject.class
 com\ttd\pojo\Subgrade.class
 com\ttd\pojo\Class_.class
 com\ttd\pojo\Subgrade_.class
+com\ttd\filters\JwtAuthenticationTokenFilter.class
 com\ttd\pojo\Subcol_.class
 com\ttd\components\JwtService.class
 com\ttd\pojo\Subject_.class
 com\ttd\repositories\UserRepository.class
 com\ttd\configs\SpringSecurityConfig.class
 com\ttd\controllers\LoginController.class
+com\ttd\controllers\ApiUserController.class
 com\ttd\pojo\Maingrade.class
 com\ttd\repositories\impl\UserReppositoryImpl.class
+com\ttd\configs\JwtSecurityConfig.class
 com\ttd\configs\HibernateConfig.class
 com\ttd\controllers\LecturerController.class
 com\ttd\configs\WebAppContextConfig.class

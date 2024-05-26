@@ -35,7 +35,7 @@ public class LecturerController {
 
     @GetMapping("")
     public String admin(Model model) {
-        return "redirect:/admin/lecturers";
+        return "redirect:/admin/lecturers/";
     }
 
     @GetMapping("/lecturers")
@@ -48,11 +48,11 @@ public class LecturerController {
         return "crudLecturer";
     }
     @PostMapping("/lecturers")
-    public String add(@ModelAttribute("lecturer") @Valid User u, Model model,
+    public String addOrUpdate(@ModelAttribute("lecturer") @Valid User u, Model model,
             BindingResult rs) {
         User a = u;
         if (!rs.hasErrors()) {
-            if (userService.addUser(u) == true) {
+            if (userService.addOrUpdateUser(u) == true) {
                 return "redirect:/";
             }
         }
@@ -73,40 +73,4 @@ public class LecturerController {
         return "crudLecturer";
     }
 
-//    @GetMapping("/lecturers/new")
-//    public String create(Model model, Principal p) {
-//        User u = new User();
-//        u.setUserRole(ROLE_LECTURER);
-//        u.setActive(true);
-//        model.addAttribute("lecturer", u);
-//        return "crudLecturer";
-//    }
-//    @PostMapping("/lecturers/new")
-//    public String add(@ModelAttribute("lecturer") @Valid User u,
-//            BindingResult rs) {
-//        if (!rs.hasErrors()) {
-//            if (userService.addUser(u) == true) {
-//                return "redirect:/admin/lecturers";
-//            }
-//        }
-//        return "crudLecturer";
-//    }
-
-    
-
-//    @PostMapping("/lecturers/{id}")
-//    public String update(@ModelAttribute("lecturer") @Valid User u, @PathVariable(value = "id") String userId,
-//            BindingResult rs) {
-//        User a = u;
-//        if (!rs.hasErrors()) {
-//            String hello = userId;
-//            if (!(u.getId().equals(userId))) {
-//                this.userService.deleteUserById(userId);
-//            }
-//            if (userService.addUser(u) == true) {
-//                return "redirect:/";
-//            }
-//        }
-//        return "crudLecturer";
-//    }
 }

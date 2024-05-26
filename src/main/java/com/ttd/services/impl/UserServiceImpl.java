@@ -61,30 +61,31 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.authUser(username, password);
     }
 
-//    @Override
-//    public User addUser(Map<String, String> params, MultipartFile avatar, String role) {
-//        User u = new User();
-//        u.setFirstName(params.get("firstName"));
-//        u.setLastName(params.get("lastName"));
-//        u.setEmail(params.get("email"));
-//        u.setUsername(params.get("username"));
-//        u.setPassword(this.passwordEncoder.encode(params.get("password")));
-//        u.setUserRole(role);
-//        if (!avatar.isEmpty()) {
-//            try {
-//                Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
-//                        ObjectUtils.asMap("resource_type", "auto"));
-//                u.setAvatar(res.get("secure_url").toString());
-//            } catch (IOException ex) {
-//                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//
-//        this.userRepo.addUser(u);
-//        return u;
-//    }
-//
-    public boolean addUser(User u) {
+    @Override
+    public User addUser(Map<String, String> params, MultipartFile avatar) {
+        User u = new User();
+        u.setFirstName(params.get("firstName"));
+        u.setLastName(params.get("lastName"));
+        u.setEmail(params.get("email"));
+        u.setUsername(params.get("username"));
+        u.setPassword(this.passwordEncoder.encode(params.get("password")));
+        u.setUserRole("ROLE_STUDENT");
+        if (!avatar.isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
+                        ObjectUtils.asMap("resource_type", "auto"));
+                u.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        this.userRepo.addUser(u);
+        return u;
+    }
+
+    @Override
+    public boolean addOrUpdateUser(User u) {
+        u.setPassword(this.passwordEncoder.encode(u.getPassword()));
         if (!u.getFile().isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(u.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
@@ -93,7 +94,7 @@ public class UserServiceImpl implements UserService {
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return this.userRepo.addUser(u);
+        return this.userRepo.addOrUpdateUser(u);
     }
 
     @Override

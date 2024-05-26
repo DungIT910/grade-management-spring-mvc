@@ -62,7 +62,7 @@ public class UserReppositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean addUser(User user) {
+    public boolean addOrUpdateUser(User user) {
         Session s = this.factory.getObject().getCurrentSession();
 
         try {
@@ -150,6 +150,13 @@ public class UserReppositoryImpl implements UserRepository {
         } catch (NoResultException e) {
             return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean addUser(User user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(user);
         return true;
     }
 }

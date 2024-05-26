@@ -22,7 +22,9 @@ public interface UserService extends UserDetailsService {
 
     boolean authUser(String username, String password);
 
-    public boolean addUser(User u);
+    public boolean addOrUpdateUser(User u);
+
+    User addUser(Map<String, String> params, MultipartFile avatar);
 
     public List<User> getUsersByRole(String role);
 
@@ -31,6 +33,6 @@ public interface UserService extends UserDetailsService {
     boolean deleteUserById(String userId);
 
     boolean changeStatus(String userId);
-    
+
     boolean isExistedUserId(String userId);
 }
