@@ -63,10 +63,10 @@ public class ApiUserController {
 //        return new ResponseEntity<>(user, HttpStatus.CREATED);
 //    }
 //    
-//    @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @CrossOrigin
-//    public ResponseEntity<User> details(Principal user) {
-//        User u = this.userService.getUserByUn(user.getName());
-//        return new ResponseEntity<>(u, HttpStatus.OK);
-//    }
+    @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<User> details(Principal user) {
+        User u = this.userService.getUserByUn(user.getName());
+        return new ResponseEntity<>(u, HttpStatus.OK);
+    }
 }

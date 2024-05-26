@@ -56,7 +56,6 @@ public class LecturerController {
                 return "redirect:/";
             }
         }
-        model.addAttribute("lecturer", u);
         return "crudLecturer";
     }
 
