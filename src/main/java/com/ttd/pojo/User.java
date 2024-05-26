@@ -91,9 +91,10 @@ public class User implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Subgrade> subgradeSet;
+    @JsonIgnore
     @Transient
     private MultipartFile file;
-    
+    @JsonIgnore
     @Transient
     private String deletedId;
 

@@ -64,11 +64,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(Map<String, String> params, MultipartFile avatar) {
         User u = new User();
+        u.setId(params.get("id"));
         u.setFirstName(params.get("firstName"));
         u.setLastName(params.get("lastName"));
         u.setEmail(params.get("email"));
         u.setUsername(params.get("username"));
         u.setPassword(this.passwordEncoder.encode(params.get("password")));
+        u.setActive(true);
         u.setUserRole("ROLE_STUDENT");
         if (!avatar.isEmpty()) {
             try {

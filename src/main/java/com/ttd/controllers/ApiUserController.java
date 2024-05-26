@@ -54,15 +54,15 @@ public class ApiUserController {
 //        return new ResponseEntity<>("SUCCESSFUL", HttpStatus.OK);
 //    }
 //    
-//    @PostMapping(path = "/users/", 
-//            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
-//            produces = {MediaType.APPLICATION_JSON_VALUE})
-//    @CrossOrigin
-//    public ResponseEntity<User> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
-//        User user = this.userService.addUser(params, avatar);
-//        return new ResponseEntity<>(user, HttpStatus.CREATED);
-//    }
-//    
+    @PostMapping(path = "/users/", 
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
+    public ResponseEntity<User> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+        User user = this.userService.addUser(params, avatar);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+    
     @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<User> details(Principal user) {
