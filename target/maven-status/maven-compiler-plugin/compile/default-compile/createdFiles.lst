@@ -11,11 +11,11 @@ com\ttd\components\JwtService.class
 com\ttd\pojo\Subject_.class
 com\ttd\repositories\UserRepository.class
 com\ttd\configs\SpringSecurityConfig.class
+com\ttd\controllers\LoginController.class
 com\ttd\pojo\Maingrade.class
 com\ttd\repositories\impl\UserReppositoryImpl.class
 com\ttd\configs\HibernateConfig.class
 com\ttd\controllers\LecturerController.class
-com\ttd\controllers\UserController.class
 com\ttd\configs\WebAppContextConfig.class
 com\ttd\filters\CustomAccessDeniedHandler.class
 com\ttd\pojo\User.class

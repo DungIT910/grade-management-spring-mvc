@@ -3,12 +3,16 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<h1 class="text-center text-info mt-1">QUẢN LÝ SẢN PHẨM</h1>
+<c:set var="buttonText" value="${lecturer.id == null ? 'Thêm giảng viên' : 'Cập nhật giảng viên'}" />
+<h1 class="text-center text-info mt-1">${buttonText}</h1>
 
-<c:url value="admin/lecturers/new" var="action" />
+<c:url value="/admin/lecturers" var="action" />
 <form:form method="post" action="${action}" modelAttribute="lecturer" enctype="multipart/form-data">
     <form:errors path="*" element="div" cssClass="alert alert-danger" />
+    <form:hidden path="userRole" />
     <form:hidden path="avatar" />
+    <form:hidden path="active" />
+    <form:hidden path="deletedId"/>
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" 
                     path="id" id="id" placeholder="Mã giảng viên..." />
@@ -17,55 +21,44 @@
     </div>
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" 
-                    path="firstName" id="firstName" placeholder="Ho giảng viên..." />
-        <label for="name">Họ</label>
-        <form:errors path="name" element="div" cssClass="text-danger" />
+                    path="firstName" id="firstName" placeholder="Họ giảng viên..." />
+        <label for="name">Họ giảng viên</label>
+        <form:errors path="firstName" element="div" cssClass="text-danger" />
     </div>
-    
+
     <div class="form-floating mb-3 mt-3">
-        <form:input type="number" class="form-control" 
-                    path="price" id="price" placeholder="Nhập giá..." />
-        <label for="price">Gía giảng viên</label>
+        <form:input type="text" class="form-control" 
+                    path="lastName" id="lastName" placeholder="Tên giảng viên..." />
+        <label for="name">Tên giảng viên</label>
+        <form:errors path="lastName" element="div" cssClass="text-danger" />
+    </div> 
+    <div class="form-floating mb-3 mt-3">
+        <form:input type="text" class="form-control" 
+                    path="email" id="email" placeholder="Email..." />
+        <label for="name">Email giảng viên</label>
+        <form:errors path="email" element="div" cssClass="text-danger" />
     </div>
     <div class="form-floating mb-3 mt-3">
-        <form:select class="form-select" id="category" name="category" path="categoryId">
-            <c:forEach items="${categories}" var="c">
-                <c:choose>
-                    <c:when test="${c.id == lecturer.categoryId.id}">
-                        <option value="${c.id}" selected>${c.name}</option>
-                    </c:when>
-                    <c:otherwise>
-                        <option value="${c.id}">${c.name}</option>
-                    </c:otherwise>
-                </c:choose>
-
-            </c:forEach>
-        </form:select>
-
-        <label for="category" class="form-label">Danh mục giảng viên:</label>
+        <form:input type="text" class="form-control" 
+                    path="username" id="username" placeholder="Username..." />
+        <label for="name">Username</label>
+        <form:errors path="username" element="div" cssClass="text-danger" />
+    </div>
+    <div class="form-floating mb-3 mt-3">
+        <form:input type="text" class="form-control" 
+                    path="password" id="password" placeholder="Password..." />
+        <label for="name">Password</label>
+        <form:errors path="password" element="div" cssClass="text-danger" />
     </div>
     <div class="form-floating mb-3 mt-3">
         <form:input type="file" class="form-control" 
                     path="file" id="file"  />
         <label for="file">Ảnh giảng viên</label>
         <c:if test="${lecturer.avatar != null}">
-            <img src="${lecturer.avatar}" width="120" />
+            <img src="${lecturer.avatar}" width="200rem"/>
         </c:if>
     </div>
-
     <div class="form-floating mb-3 mt-3">
-        <button class="btn btn-info" type="submit">
-            <c:choose>
-                <c:when test="${lecturer.id == null}">Thêm giảng viên</c:when>
-                <c:otherwise></c:otherwise>
-            </c:choose>
-        </button>
+        <button class="btn btn-info" type="submit">${buttonText}</button>
     </div>
-        <button class="btn btn-info" type="submit">
-        <c:choose>
-            <c:when test="${fn:contains(requestScope['javax.servlet.forward.request_uri'], '/new')}">Thêm giảng viên</c:when>
-            <c:otherwise>Cập nhật giảng viên</c:otherwise>
-        </c:choose>
-    </button>
-
 </form:form>

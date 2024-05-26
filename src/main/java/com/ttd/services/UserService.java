@@ -14,9 +14,23 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author admin
  */
-public interface UserService extends UserDetailsService  {
+public interface UserService extends UserDetailsService {
+
     User getUserByUn(String username);
+
+    User getUserById(String userId);
+
     boolean authUser(String username, String password);
-    User addUser(Map<String, String> params, MultipartFile avatar, String role);
+
+    public boolean addUser(User u);
+
     public List<User> getUsersByRole(String role);
+
+    boolean deleteUser(User user);
+
+    boolean deleteUserById(String userId);
+
+    boolean changeStatus(String userId);
+    
+    boolean isExistedUserId(String userId);
 }

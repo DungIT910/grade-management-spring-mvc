@@ -1,5 +1,5 @@
 
-function delPro(path, id) {
+function delLec(path, id) {
     if (confirm("Bạn chắc chắn xóa không?") === true) {
         fetch(path, {
             method: "delete"
@@ -7,7 +7,7 @@ function delPro(path, id) {
             if (res.status === 204)
                 location.reload();
             else
-                alert("Something wrong!!!");
+                alert("Đã có lỗi xảy ra!!!");
         });
     }
 }

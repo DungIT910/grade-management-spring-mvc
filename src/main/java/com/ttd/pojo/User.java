@@ -79,7 +79,6 @@ public class User implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "user_role")
     private String userRole;
@@ -94,6 +93,9 @@ public class User implements Serializable {
     private Set<Subgrade> subgradeSet;
     @Transient
     private MultipartFile file;
+    
+    @Transient
+    private String deletedId;
 
     public User() {
     }
@@ -239,6 +241,20 @@ public class User implements Serializable {
      */
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    /**
+     * @return the deletedId
+     */
+    public String getDeletedId() {
+        return deletedId;
+    }
+
+    /**
+     * @param deletedId the deletedId to set
+     */
+    public void setDeletedId(String deletedId) {
+        this.deletedId = deletedId;
     }
 
 }

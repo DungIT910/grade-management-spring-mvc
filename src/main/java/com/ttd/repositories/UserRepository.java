@@ -15,6 +15,11 @@ import java.util.Map;
 public interface UserRepository {
     List<User> getUsersByRole(String role);
     User getUserByUsername(String username);
+    User getUserById(String userId);
     boolean authUser(String username, String password);
-    User addUser(User user);
+    boolean addUser(User user);
+    boolean deleteUser(User user);
+    boolean deleteUserById(String userId);
+    boolean changeStatus(String userId);
+    boolean isExistedUserId(String userId);
 }

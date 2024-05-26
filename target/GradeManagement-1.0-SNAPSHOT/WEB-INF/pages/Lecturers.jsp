@@ -7,11 +7,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<c:url value="/admin/lecturers/" var="lecAction" />
-<c:url value="/admin/lecturers/new" var="lecnewAction" />
-<section class="container">
+<c:url value="/admin/lecturers" var="lecnewAction" />
+<section>
     <h1 class="text-center text-info mt-1">DANH SÁCH GIẢNG VIÊN</h1>
-    <a href="${lecnewAction}" class="btn btn-info">Thêm giảng viên</a>
+    <a href="${lecnewAction}" class="btn btn-info" style="">Thêm giảng viên</a>
 
     <%--<c:if test="${counter > 1}">--%>
     <!--<ul class="pagination mt-1">-->
@@ -25,7 +24,7 @@
     <!--</ul>-->
     <%--</c:if>--%>
 
-    <table class="table table-hover">
+    <table class="table table-hover" style="text-align: center; vertical-align: middle; margin-top: 2rem;">
         <thead>
             <tr>
                 <th>Id</th>
@@ -34,26 +33,38 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Avatar</th>
+                <th>Active</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="">
             <c:forEach items="${lecturers}" var="l">
+            <div class="">
                 <tr>
-                    <td>${l.id}</td>
+                    <td class="">${l.id}</td>
                     <td>${l.lastName}</td>
                     <td>${l.firstName}</td>
                     <td>${l.username}</td>
                     <td>${l.email}</td>
                     <td>
-                        <img src="${l.avatar}" alt="${l.avatar}" width="120" />
+                        <img src="${l.avatar}" alt="${l.avatar}" height="120" width="120" />
                     </td>
-                    <!--<td>-->
-                    <%--<c:url value="/api/lecturers/${l.id}" var="apiDel" />--%>
-                    <!--<a href="<c:url value="/all-lecturers/${l.id}" />" class="btn btn-success">Cập nhật</a>-->
-                    <!--<button class="btn btn-danger" onclick="delPro('${apiDel}', ${l.id})">Xóa</button>-->
-                    <!--</td>-->
+                    <td class="fw-bold fs-5">
+                        <c:if test="${l.active}">
+                            <span class="text-success">&#10003;</span>
+                        </c:if>
+                        <c:if test="${!l.active}">
+                            <span class="text-danger">&#10007;</span>
+                        </c:if>
+                    </td>
+                    <td>
+                        <c:url value="/api/lecturers/${l.id}" var="apiDel" />
+                        <a href="<c:url value="/admin/lecturers/${l.id}" />" class="btn btn-success">Cập nhật</a>
+                        <button class="btn btn-danger" onclick="delLec('${apiDel}', ${p.id})">Xóa</button>
+                    </td>
                 </tr>
-            </c:forEach>
+            </div>
+        </c:forEach>
         </tbody>
     </table>
 </section>

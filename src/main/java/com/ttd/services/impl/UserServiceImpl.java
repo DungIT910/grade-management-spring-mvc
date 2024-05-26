@@ -61,27 +61,39 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.authUser(username, password);
     }
 
-    @Override
-    public User addUser(Map<String, String> params, MultipartFile avatar, String role) {
-        User u = new User();
-        u.setFirstName(params.get("firstName"));
-        u.setLastName(params.get("lastName"));
-        u.setEmail(params.get("email"));
-        u.setUsername(params.get("username"));
-        u.setPassword(this.passwordEncoder.encode(params.get("password")));
-        u.setUserRole(role);
-        if (!avatar.isEmpty()) {
+//    @Override
+//    public User addUser(Map<String, String> params, MultipartFile avatar, String role) {
+//        User u = new User();
+//        u.setFirstName(params.get("firstName"));
+//        u.setLastName(params.get("lastName"));
+//        u.setEmail(params.get("email"));
+//        u.setUsername(params.get("username"));
+//        u.setPassword(this.passwordEncoder.encode(params.get("password")));
+//        u.setUserRole(role);
+//        if (!avatar.isEmpty()) {
+//            try {
+//                Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
+//                        ObjectUtils.asMap("resource_type", "auto"));
+//                u.setAvatar(res.get("secure_url").toString());
+//            } catch (IOException ex) {
+//                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//
+//        this.userRepo.addUser(u);
+//        return u;
+//    }
+//
+    public boolean addUser(User u) {
+        if (!u.getFile().isEmpty()) {
             try {
-                Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
-                        ObjectUtils.asMap("resource_type", "auto"));
+                Map res = this.cloudinary.uploader().upload(u.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 u.setAvatar(res.get("secure_url").toString());
             } catch (IOException ex) {
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        this.userRepo.addUser(u);
-        return u;
+        return this.userRepo.addUser(u);
     }
 
     @Override
@@ -89,5 +101,29 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.getUsersByRole(role);
     }
 
+    @Override
+    public boolean deleteUser(User user) {
+        return this.userRepo.deleteUser(user);
+    }
+
+    @Override
+    public boolean changeStatus(String userId) {
+        return this.userRepo.changeStatus(userId);
+    }
+
+    @Override
+    public boolean deleteUserById(String userId) {
+        return this.userRepo.deleteUserById(userId);
+    }
+
+    @Override
+    public User getUserById(String userId) {
+        return this.userRepo.getUserById(userId);
+    }
+
+    @Override
+    public boolean isExistedUserId(String userId) {
+        return this.userRepo.isExistedUserId(userId);
+    }
 
 }
