@@ -4,11 +4,13 @@
  */
 package com.ttd.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,11 +46,12 @@ public class Maingrade implements Serializable {
     private BigDecimal midtermGrade;
     @Column(name = "final_grade")
     private BigDecimal finalGrade;
-    @JoinColumn(name = "class_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Class classId;
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Course courseId;
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User userId;
 
     public Maingrade() {
@@ -82,12 +85,12 @@ public class Maingrade implements Serializable {
         this.finalGrade = finalGrade;
     }
 
-    public Class getClassId() {
-        return classId;
+    public Course getCourseId() {
+        return courseId;
     }
 
-    public void setClassId(Class classId) {
-        this.classId = classId;
+    public void setCourseId(Course courseId) {
+        this.courseId = courseId;
     }
 
     public User getUserId() {

@@ -2,12 +2,15 @@
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <persistence-unit name="com.ttd_GradeManagement_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.ttd.pojo.Subcol</class>
     <class>com.ttd.pojo.User</class>
-    <class>com.ttd.pojo.Maingrade</class>
+    <class>com.ttd.pojo.Post</class>
+    <class>com.ttd.pojo.Course</class>
+    <class>com.ttd.pojo.Subcol</class>
     <class>com.ttd.pojo.Subgrade</class>
+    <class>com.ttd.pojo.Forum</class>
+    <class>com.ttd.pojo.Post_1</class>
     <class>com.ttd.pojo.Subject</class>
-    <class>com.ttd.pojo.Class</class>
+    <class>com.ttd.pojo.Maingrade</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gradedb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

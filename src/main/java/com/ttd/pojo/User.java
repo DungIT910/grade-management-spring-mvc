@@ -86,6 +86,9 @@ public class User implements Serializable {
     @Column(name = "avatar")
     private String avatar;
     @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecturerId")
+    private Set<Course> courseSet;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Set<Maingrade> maingradeSet;
     @JsonIgnore
@@ -256,6 +259,15 @@ public class User implements Serializable {
      */
     public void setDeletedId(String deletedId) {
         this.deletedId = deletedId;
+    }
+
+    @XmlTransient
+    public Set<Course> getCourseSet() {
+        return courseSet;
+    }
+
+    public void setCourseSet(Set<Course> courseSet) {
+        this.courseSet = courseSet;
     }
 
 }

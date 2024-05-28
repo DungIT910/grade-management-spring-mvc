@@ -1,0 +1,31 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.ttd.services.impl;
+
+import com.ttd.pojo.Course;
+import com.ttd.pojo.User;
+import com.ttd.repositories.CourseRepository;
+import com.ttd.repositories.StudentRepository;
+import com.ttd.services.CourseService;
+import com.ttd.services.StudentService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ *
+ * @author DELL
+ */
+@Service
+public class StudentServiceImpl implements StudentService {
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Override
+    public List<User> getUsersByCourseId(int courseId) {
+        return this.studentRepository.getUsersByCourseId(courseId);
+    }
+
+}

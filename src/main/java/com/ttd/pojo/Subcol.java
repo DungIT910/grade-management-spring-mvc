@@ -48,9 +48,9 @@ public class Subcol implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @JoinColumn(name = "class_id", referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Class classId;
+    private Course courseId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subcolId")
     private Set<Subgrade> subgradeSet;
 
@@ -82,12 +82,12 @@ public class Subcol implements Serializable {
         this.name = name;
     }
 
-    public Class getClassId() {
-        return classId;
+    public Course getCourseId() {
+        return courseId;
     }
 
-    public void setClassId(Class classId) {
-        this.classId = classId;
+    public void setCourseId(Course courseId) {
+        this.courseId = courseId;
     }
 
     @XmlTransient

@@ -4,6 +4,7 @@
  */
 package com.ttd.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -46,8 +47,9 @@ public class Subject implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "subjectname")
     private String subjectname;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")
-    private Set<Class> classSet;
+    private Set<Course> courseSet;
 
     public Subject() {
     }
@@ -78,12 +80,12 @@ public class Subject implements Serializable {
     }
 
     @XmlTransient
-    public Set<Class> getClassSet() {
-        return classSet;
+    public Set<Course> getCourseSet() {
+        return courseSet;
     }
 
-    public void setClassSet(Set<Class> classSet) {
-        this.classSet = classSet;
+    public void setCourseSet(Set<Course> courseSet) {
+        this.courseSet = courseSet;
     }
 
     @Override
