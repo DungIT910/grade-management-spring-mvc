@@ -27,12 +27,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCourseByLecId(String userId) {
-        return this.courseRepo.getCourseByLecId(userId);
-    }
-
-    @Override
-    public List<Course> getCourseByStuId(String userId) {
-        return this.courseRepo.getCourseByStuId(userId);
+    public List<Course> getCourseByUserId(String userId) {
+        return this.courseRepo.getCourseByUserId(userId);
     }
 }

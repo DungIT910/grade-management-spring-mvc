@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ttd.repositories;
+package com.ttd.dto;
 
-import com.ttd.pojo.Course;
-import java.util.List;
+import java.math.BigDecimal;
 
 /**
  *
  * @author DELL
  */
-public interface CourseRepository {
-    Course getCourseById(int courseId);
-    List<Course> getCourseByUserId(String userId);
+
+public class GradeDetail {
+    
+    private BigDecimal midtermGrade;
+    private BigDecimal finalGrade;
+//    private Map<String, BigDecimal> subgrades;
 }

@@ -34,6 +34,9 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Autowired
     private LocalSessionFactoryBean factory;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public Course getCourseById(int courseId) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -43,31 +46,24 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public List<Course> getCourseByLecId(String userId) {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Course WHERE lecturerId.id=:userid");
-        q.setParameter("userid", userId);
-        List<Course> lc = q.getResultList();
-        return q.getResultList();
-    }
-
-    @Override
-    public List<Course> getCourseByStuId(String userId) {
+    public List<Course> getCourseByUserId(String userId) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
+        User u = this.userService.getUserById(userId);
+
         CriteriaQuery<Course> query = b.createQuery(Course.class);
 
         Root<Course> rootC = query.from(Course.class);
-        Root<Maingrade> rootM = query.from(Maingrade.class);
-        Predicate predicate = b.and(
-                b.equal(rootC.get("id"), rootM.get("courseId").get("id")),
-                b.equal(rootM.get("userId").get("id"), userId)
-        );
-
+        Predicate predicate = b.equal(rootC.get("lecturerId").get("id"), userId);
+        if (u.getUserRole().equals(User.ROLE_STUDENT)) {
+            Root<Maingrade> rootM = query.from(Maingrade.class);
+            predicate = b.and(
+                    b.equal(rootC.get("id"), rootM.get("courseId").get("id")),
+                    b.equal(rootM.get("userId").get("id"), userId)
+            );
+        }
         query.select(rootC).where(predicate);
-
-        List<Course> lc = s.createQuery(query).getResultList();
-        return lc;
+        return s.createQuery(query).getResultList();
     }
 
 }

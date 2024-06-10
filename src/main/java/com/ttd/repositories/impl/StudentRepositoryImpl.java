@@ -37,7 +37,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<User> getUsersByCourseId(int courseId) {
+    public List<User> getStudentsByCourseId(int courseId) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<User> query = b.createQuery(User.class);

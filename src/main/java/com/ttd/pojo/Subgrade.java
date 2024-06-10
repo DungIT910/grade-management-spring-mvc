@@ -4,6 +4,7 @@
  */
 package com.ttd.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
@@ -44,9 +45,11 @@ public class Subgrade implements Serializable {
     @NotNull
     @Column(name = "value")
     private BigDecimal value;
+    @JsonIgnore
     @JoinColumn(name = "subcol_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Subcol subcolId;
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;

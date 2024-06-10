@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -43,7 +44,12 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
 public class User implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Set<Post> postSet;
+
     private static final long serialVersionUID = 1L;
+    public static final String ROLE_STUDENT = "ROLE_STUDENT";
+    public static final String ROLE_LECTURER = "ROLE_LECTURER";
     @Id
     @Basic(optional = false)
     @NotNull
@@ -268,6 +274,15 @@ public class User implements Serializable {
 
     public void setCourseSet(Set<Course> courseSet) {
         this.courseSet = courseSet;
+    }
+
+    @XmlTransient
+    public Set<Post> getPostSet() {
+        return postSet;
+    }
+
+    public void setPostSet(Set<Post> postSet) {
+        this.postSet = postSet;
     }
 
 }

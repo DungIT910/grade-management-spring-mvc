@@ -14,6 +14,5 @@ import org.springframework.stereotype.Service;
  */
 public interface CourseService {
     public Course getCourseById(int courseId);
-    public List<Course> getCourseByLecId(String userId);
-    public List<Course> getCourseByStuId(String userId);
+    public List<Course> getCourseByUserId(String userId);
 }

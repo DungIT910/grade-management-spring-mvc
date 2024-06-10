@@ -24,8 +24,8 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public List<User> getUsersByCourseId(int courseId) {
-        return this.studentRepository.getUsersByCourseId(courseId);
+    public List<User> getStudentsByCourseId(int courseId) {
+        return this.studentRepository.getStudentsByCourseId(courseId);
     }
 
 }

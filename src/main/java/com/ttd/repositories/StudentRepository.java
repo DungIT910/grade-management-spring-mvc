@@ -12,5 +12,5 @@ import java.util.List;
  * @author DELL
  */
 public interface StudentRepository {
-    List<User> getUsersByCourseId(int courseId); 
+    List<User> getStudentsByCourseId(int courseId); 
 }

@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -50,7 +51,7 @@ public class UserReppositoryImpl implements UserRepository {
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM User WHERE id=:userid");
         q.setParameter("userid", userId);
-
+        User u = (User)q.getSingleResult();
         return (User) q.getSingleResult();
     }
 
@@ -62,16 +63,23 @@ public class UserReppositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public boolean addOrUpdateUser(User user) {
         Session s = this.factory.getObject().getCurrentSession();
 
-        try {
-            if (!user.getDeletedId().equals(user.getId())) {
-                if (!user.getDeletedId().equals(null)) {
-                    deleteUserById(user.getDeletedId());
-                }
+        try {       
+            if(user.getDeletedId().equals("")) {
+                //save
                 s.save(user);
-            } else {
+            }
+            else {
+                //update
+                if (!user.getDeletedId().equals(user.getId())) {
+                    Query q = s.createQuery("UPDATE User u SET u.id = :newId WHERE u.id = :oldId");
+                    q.setParameter("oldId", user.getDeletedId());
+                    q.setParameter("newId", user.getId());
+                    q.executeUpdate();
+                }
                 s.update(user);
             }
             return true;

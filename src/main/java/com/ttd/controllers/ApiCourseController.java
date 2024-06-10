@@ -31,14 +31,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ApiCourseController {
     @Autowired
-    private StudentService studentSerivce;
+    private UserService userService;
     @Autowired
     private GradeService gradeService;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private StudentService studentService;
+    
+    @GetMapping(path = "/courses/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<List<Course>> listCourses(Principal user) {
+        User u = this.userService.getUserByUn(user.getName());
+        return new ResponseEntity<>(this.courseService.getCourseByUserId(u.getId()), HttpStatus.OK);
+    }
     
     @GetMapping(path = "/courses/{courseId}/students/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<List<User>> listStudents(@PathVariable(value = "courseId") int courseId) {
-        return new ResponseEntity<>(this.studentSerivce.getUsersByCourseId(courseId), HttpStatus.OK);
+        return new ResponseEntity<>(this.studentService.getStudentsByCourseId(courseId), HttpStatus.OK);
     }
     
     @GetMapping(path = "/courses/{courseId}/grades/", produces = MediaType.APPLICATION_JSON_VALUE)

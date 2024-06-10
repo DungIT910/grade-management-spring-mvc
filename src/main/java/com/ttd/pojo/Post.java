@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Post.findByCreatedDate", query = "SELECT p FROM Post p WHERE p.createdDate = :createdDate")})
 public class Post implements Serializable {
 
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private User userId;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -160,6 +164,14 @@ public class Post implements Serializable {
     @Override
     public String toString() {
         return "com.ttd.pojo.Post[ id=" + id + " ]";
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
     
 }
