@@ -4,13 +4,16 @@
  */
 package com.ttd.repositories;
 
+import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.User;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author DELL
  */
 public interface StudentRepository {
-    List<User> getStudentsByCourseId(int courseId); 
+    PaginationResult<User> getStudentsByCourseId(int courseId, Map<String, String> params); 
+    int countStudentsByCourseId(int courseId);
 }

@@ -4,12 +4,15 @@
  */
 package com.ttd.services;
 
+import com.ttd.dto.GradeDetail;
+import com.ttd.dto.PaginationResult;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author DELL
  */
 public interface GradeService {
-    public List<Object> getGradesByCourseId(int courseId);
+     PaginationResult<GradeDetail> getGradesByCourseId(int courseId, Map<String, String> params); 
 }

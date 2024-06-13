@@ -4,10 +4,12 @@
  */
 package com.ttd.services.impl;
 
+import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.Course;
 import com.ttd.repositories.CourseRepository;
 import com.ttd.services.CourseService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCourseByUserId(String userId) {
-        return this.courseRepo.getCourseByUserId(userId);
+    public PaginationResult<Course> getCoursesByUserId(String userId, Map<String, String> params) {
+        return this.courseRepo.getCoursesByUserId(userId, params);
     }
 }

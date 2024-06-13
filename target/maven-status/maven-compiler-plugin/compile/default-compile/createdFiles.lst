@@ -16,6 +16,7 @@ com\ttd\configs\JwtSecurityConfig.class
 com\ttd\pojo\Post.class
 com\ttd\configs\HibernateConfig.class
 com\ttd\pojo\Course_.class
+com\ttd\dto\PaginationResult.class
 com\ttd\repositories\GradeRepository.class
 com\ttd\configs\WebAppContextConfig.class
 com\ttd\filters\CustomAccessDeniedHandler.class
@@ -34,6 +35,7 @@ com\ttd\pojo\Subgrade.class
 com\ttd\pojo\Subgrade_.class
 com\ttd\filters\JwtAuthenticationTokenFilter.class
 com\ttd\pojo\Subcol_.class
+com\ttd\utils\PaginationHelper.class
 com\ttd\pojo\Subject_.class
 com\ttd\pojo\Maingrade.class
 com\ttd\services\impl\GradeServiceImpl.class

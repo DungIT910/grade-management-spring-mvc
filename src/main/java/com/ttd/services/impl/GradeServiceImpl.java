@@ -4,12 +4,15 @@
  */
 package com.ttd.services.impl;
 
+import com.ttd.dto.GradeDetail;
+import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.Course;
 import com.ttd.repositories.CourseRepository;
 import com.ttd.repositories.GradeRepository;
 import com.ttd.services.CourseService;
 import com.ttd.services.GradeService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +27,8 @@ public class GradeServiceImpl implements GradeService {
     private GradeRepository gradeRepository;
 
     @Override
-    public List<Object> getGradesByCourseId(int courseId) {
-        return this.gradeRepository.getGradesByCourseId(courseId);
+    public PaginationResult<GradeDetail> getGradesByCourseId(int courseId, Map<String, String> params) {
+        return this.gradeRepository.getGradesByCourseId(courseId, params);
     }
     
 }

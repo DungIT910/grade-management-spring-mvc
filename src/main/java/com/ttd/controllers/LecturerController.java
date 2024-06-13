@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin")
 public class LecturerController {
 
-    private final String ROLE_LECTURER = "ROLE_LECTURER";
     @Autowired
     private UserService userService;
 
@@ -41,7 +40,7 @@ public class LecturerController {
     @GetMapping("/lecturers")
     public String create(Model model) {
         User u = new User();
-        u.setUserRole(ROLE_LECTURER);
+        u.setUserRole(User.ROLE_LECTURER);
         u.setActive(true);
         u.setDeletedId(null);
         model.addAttribute("lecturer", u);
@@ -61,7 +60,7 @@ public class LecturerController {
 
     @GetMapping("/lecturers/")
     public String list(Model model) {
-        model.addAttribute("lecturers", this.userService.getUsersByRole(ROLE_LECTURER));
+        model.addAttribute("lecturers", this.userService.getUsersByRole(User.ROLE_LECTURER));
         return "lecturers";
     }
     @GetMapping("/lecturers/{id}")

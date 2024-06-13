@@ -4,6 +4,8 @@
  */
 package com.ttd.repositories.impl;
 
+import com.ttd.dto.GradeDetail;
+import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.Course;
 import com.ttd.pojo.Maingrade;
 import com.ttd.pojo.User;
@@ -11,7 +13,10 @@ import com.ttd.repositories.CourseRepository;
 import com.ttd.repositories.StudentRepository;
 import com.ttd.repositories.UserRepository;
 import com.ttd.services.UserService;
+import com.ttd.utils.PaginationHelper;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -37,20 +42,31 @@ public class StudentRepositoryImpl implements StudentRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<User> getStudentsByCourseId(int courseId) {
+    public PaginationResult<User> getStudentsByCourseId(int courseId, Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<User> query = b.createQuery(User.class);
-        Root<User> rootU = query.from(User.class);
-        Root<Maingrade> rootM = query.from(Maingrade.class);
+        CriteriaQuery<User> cq = b.createQuery(User.class);
+        Root<User> rootU = cq.from(User.class);
+        Root<Maingrade> rootM = cq.from(Maingrade.class);
 
-        Predicate p = b.and(
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(b.and(
                 b.equal(rootM.get("userId").get("id"), rootU.get("id")),
-                b.equal(rootM.get("courseId").get("id"), courseId)
+                b.equal(rootM.get("courseId").get("id"), courseId))
         );
-        query.select(rootU).where(p);
-        List<User> listUser = s.createQuery(query).getResultList();
-        return listUser;
+        cq.select(rootU);
+        cq.where(predicates.toArray(Predicate[]::new));
+        int count = this.countStudentsByCourseId(courseId);
+        Query q = s.createQuery(cq);
+
+        return PaginationHelper.paginate(q, params, count);
     }
 
+    @Override
+    public int countStudentsByCourseId(int courseId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("SELECT Count(*) FROM Maingrade m WHERE m.courseId.id=:courseid");
+        q.setParameter("courseid", courseId);
+        return Integer.parseInt(q.getSingleResult().toString());
+    }
 }

@@ -4,7 +4,10 @@
  */
 package com.ttd.repositories;
 
+import com.ttd.dto.GradeDetail;
+import com.ttd.dto.PaginationResult;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -12,5 +15,5 @@ import java.util.List;
  */
 public interface GradeRepository {
 
-    List<Object> getGradesByCourseId(int courseId);
+    PaginationResult<GradeDetail> getGradesByCourseId(int courseId, Map<String, String> params);
 }

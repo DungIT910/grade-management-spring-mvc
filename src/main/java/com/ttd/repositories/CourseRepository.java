@@ -4,8 +4,10 @@
  */
 package com.ttd.repositories;
 
+import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.Course;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -13,5 +15,6 @@ import java.util.List;
  */
 public interface CourseRepository {
     Course getCourseById(int courseId);
-    List<Course> getCourseByUserId(String userId);
+    PaginationResult<Course> getCoursesByUserId(String userId, Map<String, String> params);
+    int countCoursesByUserId(String userId);
 }

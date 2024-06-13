@@ -4,6 +4,7 @@
  */
 package com.ttd.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -62,11 +63,14 @@ public class Post implements Serializable {
     @Size(max = 45)
     @Column(name = "created_date")
     private String createdDate;
+    @JsonIgnore
     @JoinColumn(name = "forum_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Forum forumId;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentId")
     private Set<Post> postSet;
+    @JsonIgnore
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Post parentId;

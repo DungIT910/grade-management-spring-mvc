@@ -4,6 +4,7 @@
  */
 package com.ttd.services.impl;
 
+import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.Course;
 import com.ttd.pojo.User;
 import com.ttd.repositories.CourseRepository;
@@ -11,6 +12,7 @@ import com.ttd.repositories.StudentRepository;
 import com.ttd.services.CourseService;
 import com.ttd.services.StudentService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,18 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class StudentServiceImpl implements StudentService {
+
     @Autowired
     private StudentRepository studentRepository;
 
     @Override
-    public List<User> getStudentsByCourseId(int courseId) {
-        return this.studentRepository.getStudentsByCourseId(courseId);
+    public PaginationResult<User> getStudentsByCourseId(int courseId, Map<String, String> params) {
+        return this.studentRepository.getStudentsByCourseId(courseId, params);
+    }
+
+    @Override
+    public int countStudentsByCourseId(int courseId) {
+        return this.studentRepository.countStudentsByCourseId(courseId);
     }
 
 }

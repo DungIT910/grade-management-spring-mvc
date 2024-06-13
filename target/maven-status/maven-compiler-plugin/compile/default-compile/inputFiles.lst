@@ -4,6 +4,7 @@ C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\StudentServ
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\configs\SpringSecurityConfig.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\dto\GradeDetail.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\CourseServiceImpl.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\utils\PaginationHelper.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\UserReppositoryImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\Subcol.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\UserRepository.java
@@ -35,6 +36,7 @@ C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\controllers\ApiUserC
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\controllers\LoginController.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\GradeRepositoryImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\User.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\dto\PaginationResult.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\CourseService.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\StudentRepositoryImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\controllers\LecturerController.java

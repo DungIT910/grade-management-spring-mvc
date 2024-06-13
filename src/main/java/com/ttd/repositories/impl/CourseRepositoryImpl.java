@@ -4,12 +4,15 @@
  */
 package com.ttd.repositories.impl;
 
+import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.Course;
 import com.ttd.pojo.Maingrade;
 import com.ttd.pojo.User;
 import com.ttd.repositories.CourseRepository;
 import com.ttd.services.UserService;
+import com.ttd.utils.PaginationHelper;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -46,24 +49,39 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public List<Course> getCourseByUserId(String userId) {
+    public PaginationResult<Course> getCoursesByUserId(String userId, Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         User u = this.userService.getUserById(userId);
 
-        CriteriaQuery<Course> query = b.createQuery(Course.class);
+        CriteriaQuery<Course> cq = b.createQuery(Course.class);
 
-        Root<Course> rootC = query.from(Course.class);
+        Root<Course> rootC = cq.from(Course.class);
         Predicate predicate = b.equal(rootC.get("lecturerId").get("id"), userId);
         if (u.getUserRole().equals(User.ROLE_STUDENT)) {
-            Root<Maingrade> rootM = query.from(Maingrade.class);
+            Root<Maingrade> rootM = cq.from(Maingrade.class);
             predicate = b.and(
                     b.equal(rootC.get("id"), rootM.get("courseId").get("id")),
                     b.equal(rootM.get("userId").get("id"), userId)
             );
         }
-        query.select(rootC).where(predicate);
-        return s.createQuery(query).getResultList();
+        cq.select(rootC).where(predicate);
+        Query q = s.createQuery(cq);
+        int count = this.countCoursesByUserId(userId);
+        return PaginationHelper.paginate(q, params, count);
+    }
+
+    @Override
+    public int countCoursesByUserId(String userId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder b = s.getCriteriaBuilder();
+        User u = this.userService.getUserById(userId);
+        if (u.getUserRole().equals(User.ROLE_LECTURER)) {
+            return Integer.parseInt(s.createQuery("select Count(*) from Course c WHERE c.lecturerId.id =:userid")
+                    .setParameter("userid", userId).getSingleResult().toString());
+        }
+        return Integer.parseInt(s.createQuery("select Count(*) from Maingrade m WHERE m.userId.id =:userid")
+                    .setParameter("userid", userId).getSingleResult().toString());
     }
 
 }

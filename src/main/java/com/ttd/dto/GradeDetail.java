@@ -4,16 +4,19 @@
  */
 package com.ttd.dto;
 
+import com.ttd.pojo.User;
 import java.math.BigDecimal;
+import java.util.Map;
+import lombok.Data;
 
 /**
  *
  * @author DELL
  */
-
+@Data
 public class GradeDetail {
-    
+    private User user;
     private BigDecimal midtermGrade;
     private BigDecimal finalGrade;
-//    private Map<String, BigDecimal> subgrades;
+    private Map<String, BigDecimal> subgrades;
 }
