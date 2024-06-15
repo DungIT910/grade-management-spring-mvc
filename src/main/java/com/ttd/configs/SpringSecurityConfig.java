@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     "com.ttd.repositories",
     "com.ttd.services"
 })
-//@Order(2)
+@Order(2)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

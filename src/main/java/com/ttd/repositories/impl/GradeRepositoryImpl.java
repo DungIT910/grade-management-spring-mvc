@@ -54,7 +54,6 @@ public class GradeRepositoryImpl implements GradeRepository {
 
        int count = this.studentService.countStudentsByCourseId(courseId);
 
-        // Truy vấn chính để lấy dữ liệu phân trang
         CriteriaQuery<Tuple> cq = cb.createTupleQuery();
         Root<Maingrade> mgRoot = cq.from(Maingrade.class);
         Join<Maingrade, User> userJoin = mgRoot.join("userId");
@@ -65,7 +64,6 @@ public class GradeRepositoryImpl implements GradeRepository {
                 mgRoot.get("finalGrade")
         ).where(cb.equal(mgRoot.get("courseId").get("id"), courseId));
 
-        // Lấy kết quả phân trang
         int page = params.containsKey("page") ? Integer.parseInt(params.get("page")) : 1;
         int limit = params.containsKey("limit") ? Integer.parseInt(params.get("limit")) : count;
  
@@ -73,15 +71,13 @@ public class GradeRepositoryImpl implements GradeRepository {
                 .setFirstResult((page - 1) * limit)
                 .setMaxResults(limit)
                 .getResultList();
-
-        // Chuẩn bị dữ liệu cho trang phân trang
+        
         List<GradeDetail> gradeDetails = new ArrayList<>();
         for (Tuple tuple : mainResult) {
             User user = tuple.get(0, User.class);
             BigDecimal midtermGrade = tuple.get(1, BigDecimal.class);
             BigDecimal finalGrade = tuple.get(2, BigDecimal.class);
 
-            // Truy vấn phụ để lấy điểm phụ cho user hiện tại
             CriteriaQuery<Tuple> subCq = cb.createTupleQuery();
             Root<Subgrade> sgRoot = subCq.from(Subgrade.class);
             Join<Subgrade, Subcol> subcolJoin = sgRoot.join("subcolId");
@@ -110,7 +106,7 @@ public class GradeRepositoryImpl implements GradeRepository {
 
             gradeDetails.add(gradeDetail);
         }
-        // Tạo PaginationResult và trả về
+        
         PaginationResult<GradeDetail> paginationResult = new PaginationResult<>();
         paginationResult.setData(gradeDetails);
         paginationResult.setTotalPage((int) Math.ceil(count * 1.0 / limit));

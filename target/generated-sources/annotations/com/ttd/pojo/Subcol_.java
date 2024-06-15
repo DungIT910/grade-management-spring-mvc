@@ -7,7 +7,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.12.v20230209-rNA", date="2024-06-13T02:56:50")
+@Generated(value="EclipseLink-2.7.12.v20230209-rNA", date="2024-06-15T04:44:53")
 @StaticMetamodel(Subcol.class)
 public class Subcol_ { 
 

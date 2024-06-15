@@ -8,6 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:url value="/" var="action" />
 <c:url value="/admin/lecturers/" var="lecaction" />
+<c:url value="/admin/subjects/" var="subjectaction" />
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark p-2">
     <div class="container-fluid">
         <a class="navbar-brand" href="${action}">Trang giáo vụ</a>
@@ -20,7 +21,10 @@
                 <%--<c:param name="cateId" value="${c.id}"></c:param>--%>
                 <%--</c:url>--%>
                 <li class="nav-item">
-                    <a class="nav-link" href="${action}">Giảng viên</a>
+                    <a class="nav-link" href="${lecaction}">Giảng viên</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${subjectaction}">Môn học</a>
                 </li>
                 <li class="nav-item d-flex justify-content-end">
 
