@@ -1,5 +1,6 @@
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\controllers\SubjectController.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\configs\SpringSecurityConfig.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\SubcolRepositoryImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\dto\GradeDetail.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\CourseServiceImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\utils\PaginationHelper.java
@@ -11,6 +12,7 @@ C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\Maingrade.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\configs\TilesConfig.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\StudentRepository.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\filters\RestAuthenticationEntryPoint.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\SubcolRepository.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\Forum.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\filters\CustomAccessDeniedHandler.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\GradeService.java
@@ -38,6 +40,7 @@ C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\Co
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\Post.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\CourseRepository.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\Course.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\SubcolServiceImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\SubjectServiceImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\controllers\IndexController.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\GradeServiceImpl.java
@@ -46,5 +49,6 @@ C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\filters\JwtAuthentic
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\controllers\ApiUserController.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\GradeRepositoryImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\User.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\SubcolService.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\dto\PaginationResult.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\SubjectService.java

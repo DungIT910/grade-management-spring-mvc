@@ -15,6 +15,12 @@ import org.springframework.stereotype.Service;
  * @author DELL
  */
 public interface CourseService {
+
     Course getCourseById(int courseId);
-    PaginationResult<Course> getCoursesByUserId(String userId, Map<String, String> params);
+
+    PaginationResult<Course> getCourses(Map<String, String> params);
+
+    boolean addOrUpdateCourse(Course subject);
+
+    boolean deleteCourse(int id);
 }

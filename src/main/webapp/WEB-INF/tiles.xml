@@ -43,4 +43,14 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/crudSubject.jsp" />
     </definition>
+    <definition name="courses" extends="baseLayout">
+        <put-attribute name="title" value="Danh sách khóa học" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/courses.jsp" />
+    </definition>
+    <definition name="crudCourse" extends="baseLayout">
+        <put-attribute name="title" value="Chi tiết khóa học" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/crudCourse.jsp" />
+    </definition>
 </tiles-definitions>

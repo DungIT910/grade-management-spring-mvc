@@ -8,15 +8,20 @@ import com.ttd.dto.PaginationResult;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 /**
  *
  * @author DELL
  */
 public class PaginationHelper {
-    public static <T> PaginationResult<T> paginate(Query query, Map<String, String> params, int count) {
+    @Autowired
+    private Environment env;
+    
+    public static <T> PaginationResult<T> paginate(Query query, Map<String, String> params, int count, int dfpagesize) {
         int page = params.containsKey("page") ? Integer.parseInt(params.get("page")) : 1;
-        int limit = params.containsKey("limit") ? Integer.parseInt(params.get("limit")) : count;
+        int limit = params.containsKey("limit") ? Integer.parseInt(params.get("limit")) : dfpagesize;
         int totalPage = (int) Math.ceil((double) count / limit);
         
         List<T> data = query

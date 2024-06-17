@@ -29,7 +29,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public PaginationResult<Course> getCoursesByUserId(String userId, Map<String, String> params) {
-        return this.courseRepo.getCoursesByUserId(userId, params);
+    public PaginationResult<Course> getCourses(Map<String, String> params) {
+        return this.courseRepo.getCourses(params);
+    }
+
+    @Override
+    public boolean addOrUpdateCourse(Course subject) {
+        return this.courseRepo.addOrUpdateCourse(subject);
+    }
+
+    @Override
+    public boolean deleteCourse(int id) {
+        return this.courseRepo.deleteCourse(id);
+
     }
 }

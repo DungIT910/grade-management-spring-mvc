@@ -15,5 +15,5 @@ import java.util.Map;
  */
 public interface GradeRepository {
 
-    PaginationResult<GradeDetail> getGradesByCourseId(int courseId, Map<String, String> params);
+    PaginationResult<GradeDetail> getGrades(Map<String, String> params);
 }

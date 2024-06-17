@@ -6,6 +6,7 @@ com\ttd\services\impl\SubjectServiceImpl.class
 com\ttd\repositories\impl\StudentRepositoryImpl.class
 com\ttd\pojo\Forum.class
 com\ttd\components\JwtService.class
+com\ttd\controllers\CourseController.class
 com\ttd\repositories\StudentRepository.class
 com\ttd\controllers\ApiCourseController.class
 com\ttd\repositories\UserRepository.class
@@ -29,6 +30,7 @@ com\ttd\services\impl\UserServiceImpl.class
 com\ttd\pojo\Post_.class
 com\ttd\pojo\User_.class
 com\ttd\services\CourseService.class
+com\ttd\services\SubcolService.class
 com\ttd\controllers\IndexController.class
 com\ttd\repositories\impl\GradeRepositoryImpl.class
 com\ttd\pojo\Maingrade_.class
@@ -38,6 +40,8 @@ com\ttd\pojo\Subgrade.class
 com\ttd\pojo\Subgrade_.class
 com\ttd\filters\JwtAuthenticationTokenFilter.class
 com\ttd\pojo\Subcol_.class
+com\ttd\repositories\SubcolRepository.class
+com\ttd\services\impl\SubcolServiceImpl.class
 com\ttd\utils\PaginationHelper.class
 com\ttd\pojo\Subject_.class
 com\ttd\pojo\Maingrade.class
@@ -45,6 +49,7 @@ com\ttd\services\impl\GradeServiceImpl.class
 com\ttd\controllers\ApiSubjectController.class
 com\ttd\services\SubjectService.class
 com\ttd\controllers\LecturerController.class
+com\ttd\repositories\impl\SubcolRepositoryImpl.class
 com\ttd\repositories\impl\SubjectRepositoryImpl.class
 com\ttd\pojo\Course.class
 com\ttd\pojo\User.class

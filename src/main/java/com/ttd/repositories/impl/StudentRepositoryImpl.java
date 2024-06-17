@@ -26,6 +26,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +41,8 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
+    @Autowired
+    private Environment env;
 
     @Override
     public PaginationResult<User> getStudentsByCourseId(int courseId, Map<String, String> params) {
@@ -58,8 +61,8 @@ public class StudentRepositoryImpl implements StudentRepository {
         cq.where(predicates.toArray(Predicate[]::new));
         int count = this.countStudentsByCourseId(courseId);
         Query q = s.createQuery(cq);
-
-        return PaginationHelper.paginate(q, params, count);
+        int dfpagesize = Integer.parseInt(env.getProperty("PAGE_SIZE"));
+        return PaginationHelper.paginate(q, params, count, dfpagesize);
     }
 
     @Override

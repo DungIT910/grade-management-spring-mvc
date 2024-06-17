@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public interface CourseRepository {
     Course getCourseById(int courseId);
-    PaginationResult<Course> getCoursesByUserId(String userId, Map<String, String> params);
-    int countCoursesByUserId(String userId);
+    PaginationResult<Course> getCourses(Map<String, String> params);
+    int countCourses(Map<String, String> params);
+    boolean addOrUpdateCourse(Course subject);
+    boolean deleteCourse(int id);
 }

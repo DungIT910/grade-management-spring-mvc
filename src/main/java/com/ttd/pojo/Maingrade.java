@@ -49,7 +49,6 @@ public class Maingrade implements Serializable {
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Course courseId;
-    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User userId;

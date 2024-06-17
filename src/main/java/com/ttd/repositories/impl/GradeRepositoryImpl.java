@@ -26,10 +26,12 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,18 +48,20 @@ public class GradeRepositoryImpl implements GradeRepository {
     private LocalSessionFactoryBean factory;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private Environment env;
 
     @Override
-    public PaginationResult<GradeDetail> getGradesByCourseId(int courseId, Map<String, String> params) {
+    public PaginationResult<GradeDetail> getGrades(Map<String, String> params) {
+        int courseId = Integer.parseInt(params.get("courseId"));
         Session session = factory.getObject().getCurrentSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
 
-       int count = this.studentService.countStudentsByCourseId(courseId);
+        int count = this.studentService.countStudentsByCourseId(courseId);
 
         CriteriaQuery<Tuple> cq = cb.createTupleQuery();
         Root<Maingrade> mgRoot = cq.from(Maingrade.class);
         Join<Maingrade, User> userJoin = mgRoot.join("userId");
-
         cq.multiselect(
                 userJoin,
                 mgRoot.get("midtermGrade"),
@@ -66,35 +70,31 @@ public class GradeRepositoryImpl implements GradeRepository {
 
         int page = params.containsKey("page") ? Integer.parseInt(params.get("page")) : 1;
         int limit = params.containsKey("limit") ? Integer.parseInt(params.get("limit")) : count;
- 
+
         List<Tuple> mainResult = session.createQuery(cq)
                 .setFirstResult((page - 1) * limit)
                 .setMaxResults(limit)
                 .getResultList();
-        
+
         List<GradeDetail> gradeDetails = new ArrayList<>();
         for (Tuple tuple : mainResult) {
             User user = tuple.get(0, User.class);
             BigDecimal midtermGrade = tuple.get(1, BigDecimal.class);
             BigDecimal finalGrade = tuple.get(2, BigDecimal.class);
 
-            CriteriaQuery<Tuple> subCq = cb.createTupleQuery();
-            Root<Subgrade> sgRoot = subCq.from(Subgrade.class);
-            Join<Subgrade, Subcol> subcolJoin = sgRoot.join("subcolId");
-
-            subCq.multiselect(
-                    subcolJoin.get("name"),
-                    sgRoot.get("value")
-            ).where(
-                    cb.equal(sgRoot.get("userId").get("id"), user.getId()),
-                    cb.equal(subcolJoin.get("courseId").get("id"), courseId)
-            );
-
-            List<Tuple> subResult = session.createQuery(subCq).getResultList();
+            Query q = session.createQuery(
+                    "select mg.userId as mssv, sc.name as name, sg.value as value\n"
+                    + "from Maingrade mg\n"
+                    + "left join Subcol sc on sc.courseId = mg.courseId\n"
+                    + "left join Subgrade sg on (sg.subcolId = sc.id and sg.userId = mg.userId) "
+                            + "where mg.userId.id =:userId and mg.courseId.id =:courseId ", Tuple.class);
+           q.setParameter("userId", user.getId());
+           q.setParameter("courseId", courseId);
+            List<Tuple> subResult = q.getResultList();
             Map<String, BigDecimal> subgrades = new HashMap<>();
             for (Tuple subTuple : subResult) {
-                String subcolName = subTuple.get(0, String.class);
-                BigDecimal value = subTuple.get(1, BigDecimal.class);
+                String subcolName = subTuple.get("name", String.class);
+                BigDecimal value = subTuple.get("value", BigDecimal.class);
                 subgrades.put(subcolName, value);
             }
 
@@ -106,7 +106,7 @@ public class GradeRepositoryImpl implements GradeRepository {
 
             gradeDetails.add(gradeDetail);
         }
-        
+
         PaginationResult<GradeDetail> paginationResult = new PaginationResult<>();
         paginationResult.setData(gradeDetails);
         paginationResult.setTotalPage((int) Math.ceil(count * 1.0 / limit));
@@ -114,5 +114,4 @@ public class GradeRepositoryImpl implements GradeRepository {
 
         return paginationResult;
     }
-
 }

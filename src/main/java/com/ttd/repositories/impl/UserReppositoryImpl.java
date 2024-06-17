@@ -74,7 +74,7 @@ public class UserReppositoryImpl implements UserRepository {
             }
             else {
                 //update
-                if (!user.getDeletedId().equals(user.getId())) {
+                if (user.getDeletedId() != null && !user.getDeletedId().equals(user.getId())) {
                     Query q = s.createQuery("UPDATE User u SET u.id = :newId WHERE u.id = :oldId");
                     q.setParameter("oldId", user.getDeletedId());
                     q.setParameter("newId", user.getId());

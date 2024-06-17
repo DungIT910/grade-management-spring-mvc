@@ -27,8 +27,8 @@ public class GradeServiceImpl implements GradeService {
     private GradeRepository gradeRepository;
 
     @Override
-    public PaginationResult<GradeDetail> getGradesByCourseId(int courseId, Map<String, String> params) {
-        return this.gradeRepository.getGradesByCourseId(courseId, params);
+    public PaginationResult<GradeDetail> getGrades(Map<String, String> params) {
+        return this.gradeRepository.getGrades(params);
     }
     
 }
