@@ -36,4 +36,15 @@ public class StudentServiceImpl implements StudentService {
         return this.studentRepository.countStudentsByCourseId(courseId);
     }
 
+    @Override
+    public boolean removeStudentFromCourse(int courseId, String studentID) {
+        return this.studentRepository.removeStudentFromCourse(courseId, studentID);
+    }
+
+    @Override
+    public boolean addStudentToCourse(int courseId, String studentId) {
+        return this.studentRepository.addStudentToCourse(courseId, studentId);
+
+    }
+
 }

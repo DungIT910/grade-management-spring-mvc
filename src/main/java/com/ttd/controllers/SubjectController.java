@@ -41,7 +41,7 @@ public class SubjectController {
         return "crudSubject";
     }
     @PostMapping("/subjects")
-    public String addOrUpdate(@ModelAttribute("subject") @Valid Subject subject, Model model,
+    public String addOrUpdate(@ModelAttribute("subject") @Valid Subject subject,
             BindingResult rs) {
         if (!rs.hasErrors()) {
             if (subjectService.addOrUpdateSubject(subject) == true) {

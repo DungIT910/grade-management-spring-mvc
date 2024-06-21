@@ -33,15 +33,18 @@ C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\Su
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\SubjectRepository.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\configs\SecurityWebApplicationInitializer.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\StudentService.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\ForumRepository.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\UserReppositoryImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\UserRepository.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\UserService.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\CourseRepositoryImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\Post.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\CourseRepository.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\ForumService.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\Course.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\SubcolServiceImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\SubjectServiceImpl.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\ForumServiceImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\controllers\IndexController.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\impl\GradeServiceImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\components\JwtService.java
@@ -51,4 +54,5 @@ C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\Gr
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\pojo\User.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\SubcolService.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\dto\PaginationResult.java
+C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\repositories\impl\ForumRepositoryImpl.java
 C:\Users\DELL\Desktop\GradeManagement\src\main\java\com\ttd\services\SubjectService.java

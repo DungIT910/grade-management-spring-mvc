@@ -7,7 +7,7 @@
 <h1 class="text-center text-info mt-1">${buttonText}</h1>
 
 <c:url value="/admin/courses" var="action" />
-<form:form method="post" action="${action}" modelAttribute="course" enctype="multipart/form-data">
+<form:form method="post" action="${action}" modelAttribute="course">
     <form:errors path="*" element="div" cssClass="alert alert-danger" />
     <form:hidden path="id" />
     <div class="form-floating mb-3 mt-3">
@@ -17,7 +17,7 @@
         <form:errors path="name" element="div" cssClass="text-danger" />
     </div>
     <div class="form-floating mb-3 mt-3">
-        <form:select class="form-select" id="subjectId" name="subjectId" path="subjectId">
+        <form:select  class="form-select" id="subjectId" name="subjectId" path="subjectId">
             <c:forEach items="${subjects}" var="s">
                 <c:choose>
                     <c:when test="${s.id == course.subjectId.id}">
@@ -46,7 +46,7 @@
 
             </c:forEach>
         </form:select>
-        <label for="subjectId" class="form-label">Giảng viên phụ trách</label>
+        <label for="lecturerId" class="form-label">Giảng viên phụ trách</label>
     </div>
 
     <div class="form-floating mb-3 mt-3">
@@ -54,6 +54,18 @@
     </div>
 
 </form:form>
+<c:if test="${course.id != null}">
+
+<div class="form-floating mb-3 mt-3 row">
+    <div class="col">
+        <input type="text" class="form-control" id="studentIdToAdd" placeholder="Mã sinh viên...">
+    </div>
+    <div class="col">
+        <c:url value="/api/courses/${course.id}/students/?studentId=${stu.id}" var="apiAddStudent" />
+        <button class="btn btn-success" onclick="addStudent('${apiAddStudent}')">Thêm sinh viên</button>
+    </div>
+</div>
+
 <table class="table table-hover" style="text-align: center; vertical-align: middle; margin-top: 2rem;">
     <thead>
         <tr>
@@ -88,11 +100,13 @@
                     </c:if>
                 </td>
                 <td>
-                    <c:url value="/api/lecturers/${stu.id}" var="apiDel" />
-                    <a href="<c:url value="/admin/lecturers/${stu.id}" />" class="btn btn-success">Cập nhật</a>
+                    <c:url value="/api/courses/${course.id}/students/${stu.id}" var="apiDel" />
+                    <button class="btn btn-danger" onclick="removeStudent('${apiDel}')">Xóa khỏi lớp</button>
                 </td>
             </tr>
         </div>
     </c:forEach>
 </tbody>
 </table>   
+</c:if>
+<script src="<c:url value="/js/main.js" />"></script>

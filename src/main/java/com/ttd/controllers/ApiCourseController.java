@@ -8,14 +8,17 @@ import com.ttd.components.JwtService;
 import com.ttd.dto.GradeDetail;
 import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.Course;
+import com.ttd.pojo.Forum;
 import com.ttd.pojo.Subcol;
 import com.ttd.pojo.User;
 import com.ttd.services.CourseService;
+import com.ttd.services.ForumService;
 import com.ttd.services.GradeService;
 import com.ttd.services.StudentService;
 import com.ttd.services.SubcolService;
 import com.ttd.services.UserService;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +28,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,6 +56,8 @@ public class ApiCourseController {
     private StudentService studentService;
     @Autowired
     private SubcolService subcolService;
+    @Autowired
+    private ForumService forumService;
 
     @GetMapping(path = "/courses/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
@@ -65,6 +72,22 @@ public class ApiCourseController {
     public ResponseEntity<PaginationResult<User>> listStudents(@PathVariable(value = "courseId") int courseId, @RequestParam Map<String, String> params) {
         return new ResponseEntity<>(this.studentService.getStudentsByCourseId(courseId, params), HttpStatus.OK);
     }
+    @PostMapping(path = "/courses/{courseId}/students/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<?> addStudents(@PathVariable(value = "courseId") int courseId, @RequestParam("studentId") String studentId) {
+        if (userService.isExistedUserId(studentId))
+            return new ResponseEntity<>(this.studentService.addStudentToCourse(courseId, studentId), HttpStatus.OK);
+        else 
+            return ResponseEntity.notFound().build();
+    }
+    @DeleteMapping(path = "/courses/{courseId}/students/{studentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<?> removeStudents(@PathVariable(value = "courseId") int courseId, @PathVariable(value = "studentId") String studentId) {
+        if (userService.isExistedUserId(studentId))
+            return new ResponseEntity<>(this.studentService.removeStudentFromCourse(courseId, studentId), HttpStatus.NO_CONTENT);
+        else 
+            return ResponseEntity.notFound().build();
+    }
 
     @GetMapping(path = "/courses/{courseId}/grades/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
@@ -77,19 +100,67 @@ public class ApiCourseController {
     @CrossOrigin
     public ResponseEntity<?> addSubcol(@PathVariable(value = "courseId") int courseId, @RequestBody Subcol subcol) {
         subcol.setCourseId(courseService.getCourseById(courseId));
-        if (this.subcolService.addOrUpdateSubcol(subcol)) {
+        Map<String, String> params = new HashMap<>();
+        params.put("courseId", String.valueOf(courseId));
+        if (this.subcolService.countSubcols(params) >= 3) {
+            return new ResponseEntity<>("Toi da khong qua 5 cot diem", HttpStatus.BAD_REQUEST);
+        } else if (this.subcolService.addOrUpdateSubcol(subcol)) {
             return new ResponseEntity<>(subcol, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Du lieu khong hop le", HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/courses/{courseId}/subcols/{subcolName}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> delete(@PathVariable(value = "courseId") String courseId, @PathVariable(value = "subcolName") String subcolName) {
+        Map<String, String> params = new HashMap<>();
+        params.put("subcolName", subcolName);
+        params.put("courseId", courseId);
+        if (this.subcolService.getSubcol(params) != null) {
+            this.subcolService.deleteSubcol(params);
+            return new ResponseEntity<>("Xoa thanh cong", HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Co loi", HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/courses/{courseId}/subcols/")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable(value = "courseId") String courseId, @RequestParam Map<String, String> params) {
-        if (params.containsKey("name")) {
-            params.put("courseId", courseId);
-            this.subcolService.deleteSubcol(params);
+    @PutMapping("/courses/{courseId}/subcols/")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> patch(@PathVariable(value = "courseId") String courseId, @RequestBody Subcol subcol) {
+        Map<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(subcol.getId()));
+        Subcol sc = this.subcolService.getSubcol(params);
+        if (courseId.equals(String.valueOf(sc.getCourseId()))) {
+            this.subcolService.addOrUpdateSubcol(sc);
         }
+        return new ResponseEntity<>("Du lieu khong hop le", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(path = "/courses/{courseId}/forums/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<PaginationResult<Forum>> listForums(@PathVariable(value = "courseId") String courseId, @RequestParam Map<String, String> params) {
+        params.put("courseId", courseId);
+        return new ResponseEntity<>(this.forumService.getForums(params), HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/courses/{courseId}/forums/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<?> addForum(@PathVariable(value = "courseId") int courseId, @RequestBody Forum forum) {
+        forum.setCourseId(this.courseService.getCourseById(courseId));
+        if (this.forumService.addOrUpdateForum(forum)) {
+            return new ResponseEntity<>(forum, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Du lieu khong hop le", HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/courses/{courseId}/forums/{forumId}")
+    public ResponseEntity<String> deleteForum(@PathVariable(value = "courseId") String courseId, @PathVariable(value = "forumId") int forumId) {
+        Forum forum = this.forumService.getForumById(forumId);
+        if (forum != null) {
+            this.forumService.deleteForum(forumId);
+            return new ResponseEntity<>("xoa thanh cong", HttpStatus.OK);
+        }   
+        return ResponseEntity.notFound().build();
     }
 }

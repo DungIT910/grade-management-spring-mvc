@@ -24,6 +24,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -71,5 +72,37 @@ public class StudentRepositoryImpl implements StudentRepository {
         Query q = s.createQuery("SELECT Count(*) FROM Maingrade m WHERE m.courseId.id=:courseid");
         q.setParameter("courseid", courseId);
         return Integer.parseInt(q.getSingleResult().toString());
+    }
+
+    @Override
+    public boolean removeStudentFromCourse(int courseId, String studentID) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query q = session.createQuery("delete from Maingrade m where m.userId.id =:userId and m.courseId.id=:courseId");
+        q.setParameter("userId", studentID);
+        q.setParameter("courseId", courseId);
+        try {
+            q.executeUpdate();
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addStudentToCourse(int courseId, String studentId) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query q = session.createQuery("insert into Maingrade(courseId, userId) " +
+                                   "select c, u from Course c, User u " +
+                                   "where c.id = :courseId and u.id = :userId");
+        q.setParameter("userId", studentId);
+        q.setParameter("courseId", courseId);
+        try {
+            q.executeUpdate();
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

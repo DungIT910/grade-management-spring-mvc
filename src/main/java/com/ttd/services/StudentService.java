@@ -16,4 +16,7 @@ import java.util.Map;
 public interface StudentService {
     PaginationResult<User> getStudentsByCourseId(int courseId, Map<String, String> params);
     int countStudentsByCourseId(int courseId);
+    boolean removeStudentFromCourse(int courseId, String studentID);
+    boolean addStudentToCourse(int courseId, String studentId);
+
 }

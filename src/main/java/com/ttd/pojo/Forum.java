@@ -50,6 +50,7 @@ public class Forum implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
+    @JsonIgnore
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Course courseId;

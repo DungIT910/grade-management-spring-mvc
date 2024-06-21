@@ -65,7 +65,7 @@ public class CourseController {
     }
 
     @PostMapping("/courses")
-    public String addOrUpdate(@ModelAttribute("course") @Valid Course c, Model model,
+    public String addOrUpdate(@ModelAttribute(value = "course") @Valid Course c,
             BindingResult rs) {
         if (!rs.hasErrors()) {
             if (courseService.addOrUpdateCourse(c) == true) {
@@ -96,5 +96,4 @@ public class CourseController {
         
         return "crudCourse";
     }
-
 }

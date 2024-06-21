@@ -56,7 +56,7 @@ public class SubcolRepositoryImpl implements SubcolRepository {
             }
             String courseId = params.get("courseId");
             if (courseId != null && !courseId.isEmpty()) {
-                predicates.add(b.equal(root.get("courseId.id"), Integer.parseInt(courseId)));
+                predicates.add(b.equal(root.get("courseId").get("id"), Integer.parseInt(courseId)));
             }
             q.where(predicates.toArray(Predicate[]::new));
         }
@@ -90,7 +90,7 @@ public class SubcolRepositoryImpl implements SubcolRepository {
 
             String courseId = params.get("courseId");
             if (courseId != null && !courseId.isEmpty()) {
-                predicates.add(cb.equal(scRoot.get("courseId.id"), Integer.valueOf(courseId)));
+                predicates.add(cb.equal(scRoot.get("courseId").get("id"), Integer.valueOf(courseId)));
             }
             cq.where(predicates.toArray(Predicate[]::new));
         }

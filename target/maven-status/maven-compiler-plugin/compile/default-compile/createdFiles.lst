@@ -2,6 +2,7 @@ com\ttd\configs\TilesConfig.class
 com\ttd\filters\RestAuthenticationEntryPoint.class
 com\ttd\configs\SecurityWebApplicationInitializer.class
 com\ttd\repositories\CourseRepository.class
+com\ttd\services\impl\ForumServiceImpl.class
 com\ttd\services\impl\SubjectServiceImpl.class
 com\ttd\repositories\impl\StudentRepositoryImpl.class
 com\ttd\pojo\Forum.class
@@ -15,6 +16,7 @@ com\ttd\controllers\LoginController.class
 com\ttd\controllers\ApiUserController.class
 com\ttd\repositories\impl\UserReppositoryImpl.class
 com\ttd\configs\JwtSecurityConfig.class
+com\ttd\repositories\ForumRepository.class
 com\ttd\controllers\SubjectController.class
 com\ttd\pojo\Post.class
 com\ttd\configs\HibernateConfig.class
@@ -27,6 +29,7 @@ com\ttd\services\impl\StudentServiceImpl.class
 com\ttd\pojo\Forum_.class
 com\ttd\repositories\SubjectRepository.class
 com\ttd\services\impl\UserServiceImpl.class
+com\ttd\repositories\impl\ForumRepositoryImpl.class
 com\ttd\pojo\Post_.class
 com\ttd\pojo\User_.class
 com\ttd\services\CourseService.class
@@ -34,6 +37,7 @@ com\ttd\services\SubcolService.class
 com\ttd\controllers\IndexController.class
 com\ttd\repositories\impl\GradeRepositoryImpl.class
 com\ttd\pojo\Maingrade_.class
+com\ttd\services\ForumService.class
 com\ttd\pojo\Subcol.class
 com\ttd\pojo\Subject.class
 com\ttd\pojo\Subgrade.class
