@@ -12,7 +12,11 @@ import com.ttd.pojo.Subcol;
 import com.ttd.pojo.Subgrade;
 import com.ttd.pojo.User;
 import com.ttd.repositories.GradeRepository;
+import com.ttd.services.MaingradeService;
 import com.ttd.services.StudentService;
+import com.ttd.services.SubcolService;
+import com.ttd.services.SubgradeService;
+import com.ttd.services.UserService;
 import com.ttd.utils.PaginationHelper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -48,6 +52,14 @@ public class GradeRepositoryImpl implements GradeRepository {
     private LocalSessionFactoryBean factory;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private MaingradeService maingradeService;
+    @Autowired
+    private SubcolService subcolService;
+    @Autowired
+    private SubgradeService subgradeService;
     @Autowired
     private Environment env;
 
@@ -87,9 +99,9 @@ public class GradeRepositoryImpl implements GradeRepository {
                     + "from Maingrade mg\n"
                     + "left join Subcol sc on sc.courseId = mg.courseId\n"
                     + "left join Subgrade sg on (sg.subcolId = sc.id and sg.userId = mg.userId) "
-                            + "where mg.userId.id =:userId and mg.courseId.id =:courseId ", Tuple.class);
-           q.setParameter("userId", user.getId());
-           q.setParameter("courseId", courseId);
+                    + "where mg.userId.id =:userId and mg.courseId.id =:courseId ", Tuple.class);
+            q.setParameter("userId", user.getId());
+            q.setParameter("courseId", courseId);
             List<Tuple> subResult = q.getResultList();
             Map<String, BigDecimal> subgrades = new HashMap<>();
             for (Tuple subTuple : subResult) {
@@ -114,4 +126,32 @@ public class GradeRepositoryImpl implements GradeRepository {
 
         return paginationResult;
     }
+
+    @Override
+    public GradeDetail updateGrades(GradeDetail gd, int courseId) {
+        Session session = factory.getObject().getCurrentSession();
+        String userId = gd.getUser().getId();
+        Map<String, BigDecimal> subgrades = gd.getSubgrades();
+        Maingrade mg = this.maingradeService.getMaingradeById(userId, courseId);
+        mg.setMidtermGrade(gd.getMidtermGrade());
+        mg.setFinalGrade(gd.getFinalGrade());
+        for (Map.Entry<String, BigDecimal> subgrade : subgrades.entrySet()) {
+            Map<String, String> params = new HashMap<>();
+            params.put("name", subgrade.getKey());
+            params.put("courseId", String.valueOf(courseId));
+            Subcol sc = subcolService.getSubcol(params);
+            if (this.subgradeService.isExistSubgrade(sc.getId(), userId)) {
+                Subgrade sg = subgradeService.getSubgradeById(sc.getId(), userId);
+                sg.setValue(subgrade.getValue());
+            } else {
+                Subgrade sg = new Subgrade();
+                sg.setSubcolId(sc);
+                sg.setUserId(this.userService.getUserById(userId));
+                sg.setValue(subgrade.getValue());
+                session.save(sg);
+            }
+        }
+        return gd;
+    }
+    
 }

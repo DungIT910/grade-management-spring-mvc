@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GradeServiceImpl implements GradeService {
-    
+
     @Autowired
     private GradeRepository gradeRepository;
 
@@ -30,5 +30,22 @@ public class GradeServiceImpl implements GradeService {
     public PaginationResult<GradeDetail> getGrades(Map<String, String> params) {
         return this.gradeRepository.getGrades(params);
     }
-    
+
+    @Override
+    public GradeDetail updateGrades(GradeDetail gd, int courseId) {
+        return this.gradeRepository.updateGrades(gd, courseId);
+    }
+
+//    @Override
+//    public List<GradeDetail> updateGradeList(List<GradeDetail> gradeList, int courseId) {
+//        for (GradeDetail gd : gradeList) {
+//            
+//        }
+//    }
+
+    @Override
+    public List<GradeDetail> updateGradeList(List<GradeDetail> gradeList, int courseId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -68,11 +69,10 @@ public class Post implements Serializable {
     @ManyToOne(optional = false)
     private Forum forumId;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentId", fetch = FetchType.EAGER)
     private Set<Post> postSet;
-    @JsonIgnore
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Post parentId;
 
     public Post() {
@@ -177,5 +177,5 @@ public class Post implements Serializable {
     public void setUserId(User userId) {
         this.userId = userId;
     }
-    
+
 }

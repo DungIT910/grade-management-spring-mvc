@@ -17,6 +17,6 @@ public interface ForumRepository {
     Forum getForumById(int forumId);
     PaginationResult<Forum> getForums(Map<String, String> params);
     int countForums(Map<String, String> params);
-    boolean addOrUpdateForum(Forum subject);
+    boolean addOrUpdateForum(Forum forum);
     boolean deleteForum(int id);
 }

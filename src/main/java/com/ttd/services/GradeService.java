@@ -14,5 +14,11 @@ import java.util.Map;
  * @author DELL
  */
 public interface GradeService {
-     PaginationResult<GradeDetail> getGrades(Map<String, String> params); 
+
+    PaginationResult<GradeDetail> getGrades(Map<String, String> params);
+
+    GradeDetail updateGrades(GradeDetail gd, int courseId);
+
+    List<GradeDetail> updateGradeList(List<GradeDetail> gradeList, int courseId);
+
 }

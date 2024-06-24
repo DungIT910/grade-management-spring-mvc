@@ -5,6 +5,7 @@ com\ttd\repositories\CourseRepository.class
 com\ttd\services\impl\ForumServiceImpl.class
 com\ttd\services\impl\SubjectServiceImpl.class
 com\ttd\repositories\impl\StudentRepositoryImpl.class
+com\ttd\repositories\impl\SubgradeRepositoryImpl.class
 com\ttd\pojo\Forum.class
 com\ttd\components\JwtService.class
 com\ttd\controllers\CourseController.class
@@ -15,8 +16,11 @@ com\ttd\configs\SpringSecurityConfig.class
 com\ttd\controllers\LoginController.class
 com\ttd\controllers\ApiUserController.class
 com\ttd\repositories\impl\UserReppositoryImpl.class
+com\ttd\repositories\impl\MaingradeRepositoryImpl.class
 com\ttd\configs\JwtSecurityConfig.class
 com\ttd\repositories\ForumRepository.class
+com\ttd\repositories\MaingradeRepository.class
+com\ttd\repositories\SubgradeRepository.class
 com\ttd\controllers\SubjectController.class
 com\ttd\pojo\Post.class
 com\ttd\configs\HibernateConfig.class
@@ -29,6 +33,7 @@ com\ttd\services\impl\StudentServiceImpl.class
 com\ttd\pojo\Forum_.class
 com\ttd\repositories\SubjectRepository.class
 com\ttd\services\impl\UserServiceImpl.class
+com\ttd\controllers\ApiForumController.class
 com\ttd\repositories\impl\ForumRepositoryImpl.class
 com\ttd\pojo\Post_.class
 com\ttd\pojo\User_.class
@@ -39,6 +44,11 @@ com\ttd\repositories\impl\GradeRepositoryImpl.class
 com\ttd\pojo\Maingrade_.class
 com\ttd\services\ForumService.class
 com\ttd\pojo\Subcol.class
+com\ttd\repositories\PostRepository.class
+com\ttd\services\PostService.class
+com\ttd\services\SubgradeService.class
+com\ttd\services\impl\MaingradeServiceImpl.class
+com\ttd\services\impl\SubgradeServiceImpl.class
 com\ttd\pojo\Subject.class
 com\ttd\pojo\Subgrade.class
 com\ttd\pojo\Subgrade_.class
@@ -49,11 +59,15 @@ com\ttd\services\impl\SubcolServiceImpl.class
 com\ttd\utils\PaginationHelper.class
 com\ttd\pojo\Subject_.class
 com\ttd\pojo\Maingrade.class
+com\ttd\repositories\impl\PostRepositoryImpl.class
 com\ttd\services\impl\GradeServiceImpl.class
+com\ttd\services\MaingradeService.class
+com\ttd\formatters\SubjectFormatter.class
 com\ttd\controllers\ApiSubjectController.class
 com\ttd\services\SubjectService.class
 com\ttd\controllers\LecturerController.class
 com\ttd\repositories\impl\SubcolRepositoryImpl.class
+com\ttd\services\impl\PostServiceImpl.class
 com\ttd\repositories\impl\SubjectRepositoryImpl.class
 com\ttd\pojo\Course.class
 com\ttd\pojo\User.class
@@ -61,6 +75,7 @@ com\ttd\repositories\impl\CourseRepositoryImpl.class
 com\ttd\services\impl\CourseServiceImpl.class
 com\ttd\configs\DispatcherServletInit.class
 com\ttd\dto\GradeDetail.class
+com\ttd\formatters\UserFormatter.class
 com\ttd\services\UserService.class
 com\ttd\services\GradeService.class
 com\ttd\services\StudentService.class

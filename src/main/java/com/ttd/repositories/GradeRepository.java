@@ -16,4 +16,5 @@ import java.util.Map;
 public interface GradeRepository {
 
     PaginationResult<GradeDetail> getGrades(Map<String, String> params);
+    GradeDetail updateGrades(GradeDetail gradeDetail, int courseId); 
 }
