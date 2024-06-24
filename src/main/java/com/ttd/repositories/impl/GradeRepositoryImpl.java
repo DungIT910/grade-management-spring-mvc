@@ -12,6 +12,7 @@ import com.ttd.pojo.Subcol;
 import com.ttd.pojo.Subgrade;
 import com.ttd.pojo.User;
 import com.ttd.repositories.GradeRepository;
+import com.ttd.services.CourseService;
 import com.ttd.services.MaingradeService;
 import com.ttd.services.StudentService;
 import com.ttd.services.SubcolService;
@@ -60,6 +61,8 @@ public class GradeRepositoryImpl implements GradeRepository {
     private SubcolService subcolService;
     @Autowired
     private SubgradeService subgradeService;
+    @Autowired
+    private CourseService courseService;
     @Autowired
     private Environment env;
 
@@ -153,5 +156,33 @@ public class GradeRepositoryImpl implements GradeRepository {
         }
         return gd;
     }
-    
+
+    @Override
+    public GradeDetail getStudentgrade(String userId, int courseId) {
+        Session session = factory.getObject().getCurrentSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        Query q = session.createQuery(
+                "select mg.userId as mssv,mg.midtermGrade as midtermGrade , mg.finalGrade as finalGrade, sc.name as name, sg.value as value\n"
+                + "from Maingrade mg\n"
+                + "left join Subcol sc on sc.courseId = mg.courseId\n"
+                + "left join Subgrade sg on (sg.subcolId = sc.id and sg.userId = mg.userId) "
+                + "where mg.userId.id =:userId and mg.courseId.id =:courseId ", Tuple.class);
+        q.setParameter("userId", userId);
+        q.setParameter("courseId", courseId);
+        List<Tuple> result = q.getResultList();
+        GradeDetail gradeDetail = new GradeDetail();
+        Map<String, BigDecimal> subgrades = new HashMap<>();
+        for (Tuple subTuple : result) {
+            String subcolName = subTuple.get("name", String.class);
+            BigDecimal value = subTuple.get("value", BigDecimal.class);
+            subgrades.put(subcolName, value);
+            gradeDetail.setMidtermGrade(subTuple.get("midtermGrade", BigDecimal.class));
+            gradeDetail.setFinalGrade(subTuple.get("finalGrade", BigDecimal.class));
+        }
+        gradeDetail.setCourse(this.courseService.getCourseById(courseId));
+        gradeDetail.setUser(this.userService.getUserById(userId));
+        gradeDetail.setSubgrades(subgrades);
+        return gradeDetail;
+    }
+
 }

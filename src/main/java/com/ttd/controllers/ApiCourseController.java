@@ -71,12 +71,23 @@ public class ApiCourseController {
         params.put("userId", u.getId());
         return new ResponseEntity<>(this.courseService.getCourses(params), HttpStatus.OK);
     }
+    @GetMapping(path = "/courses/{courseId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<?> listCourses(@PathVariable(value = "courseId") int courseId) {
+        return new ResponseEntity<>(this.courseService.getCourseById(courseId), HttpStatus.OK);
+    }
 
     // STUDENT OF COURSE
     @GetMapping(path = "/courses/{courseId}/students/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<PaginationResult<User>> listStudents(@PathVariable(value = "courseId") int courseId, @RequestParam Map<String, String> params) {
         return new ResponseEntity<>(this.studentService.getStudentsByCourseId(courseId, params), HttpStatus.OK);
+    }
+    
+    @GetMapping(path = "/courses/{courseId}/students/{studentId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<?> studentDetail(@PathVariable(value = "courseId") int courseId, @PathVariable(value = "studentId") String studentId) {
+        return new ResponseEntity<>(this.gradeService.getStudentgrade(studentId, courseId), HttpStatus.OK);
     }
 
     @PostMapping(path = "/courses/{courseId}/students/", produces = MediaType.APPLICATION_JSON_VALUE)

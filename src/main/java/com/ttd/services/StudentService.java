@@ -4,6 +4,7 @@
  */
 package com.ttd.services;
 
+import com.ttd.dto.GradeDetail;
 import com.ttd.dto.PaginationResult;
 import com.ttd.pojo.User;
 import java.util.List;
@@ -18,5 +19,6 @@ public interface StudentService {
     int countStudentsByCourseId(int courseId);
     boolean removeStudentFromCourse(int courseId, String studentID);
     boolean addStudentToCourse(int courseId, String studentId);
+
 
 }

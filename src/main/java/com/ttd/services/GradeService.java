@@ -18,7 +18,6 @@ public interface GradeService {
     PaginationResult<GradeDetail> getGrades(Map<String, String> params);
 
     GradeDetail updateGrades(GradeDetail gd, int courseId);
-
-    List<GradeDetail> updateGradeList(List<GradeDetail> gradeList, int courseId);
+    GradeDetail getStudentgrade(String userId, int courseId);
 
 }

@@ -17,4 +17,5 @@ public interface GradeRepository {
 
     PaginationResult<GradeDetail> getGrades(Map<String, String> params);
     GradeDetail updateGrades(GradeDetail gradeDetail, int courseId); 
+    GradeDetail getStudentgrade(String userId, int courseId);
 }

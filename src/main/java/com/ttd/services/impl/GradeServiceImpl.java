@@ -36,16 +36,9 @@ public class GradeServiceImpl implements GradeService {
         return this.gradeRepository.updateGrades(gd, courseId);
     }
 
-//    @Override
-//    public List<GradeDetail> updateGradeList(List<GradeDetail> gradeList, int courseId) {
-//        for (GradeDetail gd : gradeList) {
-//            
-//        }
-//    }
-
     @Override
-    public List<GradeDetail> updateGradeList(List<GradeDetail> gradeList, int courseId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public GradeDetail getStudentgrade(String userId, int courseId) {
+        return this.gradeRepository.getStudentgrade(userId, courseId);
     }
 
 }

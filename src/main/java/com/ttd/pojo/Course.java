@@ -50,7 +50,6 @@ public class Course implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @JsonIgnore  
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User lecturerId;
